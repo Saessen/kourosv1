@@ -1,20 +1,105 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
+{% endblock %}
+
 {% block title %}Hello DashboardController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <nav class="navbar navbar-light bg-light m-0">
+        <div class="container-fluid justify-content-center">
+            <p id="hello_dashboard">Bonjour {nom}</p>
+        </div>
+    </nav>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp7-4/htdocs/kourosv1/src/Controller/DashboardController.php'|file_link(0) }}">src/Controller/DashboardController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp7-4/htdocs/kourosv1/templates/dashboard/index.html.twig'|file_link(0) }}">templates/dashboard/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="row mt-4 justify-content-around">
+        <div class="col-sm-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Devis </h5>
+                        <h6><span class="badge bg-success"> Accepté</span></h6>
+                    </div>
+                    <p class="card-text">{nbr}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Factures</h5>
+                        <h6><span class="badge bg-success"> Accepté</span></h6>
+                    </div>
+                    <p class="card-text">{nbr}</p>
+                    {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Sessions</h5>
+                        <h6><span class="badge bg-warning"> En cours</span></h6>
+                    </div>
+                    <p class="card-text">{nbr}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Sessions</h5>
+                        <h6><span class="badge bg-danger"> A venir</span></h6>
+                    </div>
+                    <p class="card-text">{nbr}</p>
+                    {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 justify-content-evenly">
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Notification </h5>
+                        <h6><span class="badge bg-danger">A faire</span></h6>
+                    </div>
+                    <ul>
+                    <li>Lorem ipsum dolor sit amet</li>
+                    <li>Phasellus placerat viverra tincidunt</li>
+                    <li>Aenean augue massa</li>
+                    <li>Curabitur dignissim eget</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Factures</h5>
+                        <h6><span class="badge bg-success"> Accepté</span></h6>
+                    </div>
+                    <p class="card-text">{nbr}</p>
+                    {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Factures</h5>
+                        <h6><span class="badge bg-success"> Accepté</span></h6>
+                    </div>
+                    <p class="card-text">{nbr}</p>
+                    {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+                </div>
+            </div>
+        </div>
 {% endblock %}

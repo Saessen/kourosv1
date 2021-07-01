@@ -1,0 +1,53 @@
+// CSS general
+* {
+    box-sizing: border-box;
+}
+body{
+    background: #EBEBEC;
+    color:#6D6F70;
+}
+a{
+    text-decoration: none;
+    color: #6D6F70;
+}
+.c1{
+    color: #6D6F70;
+}
+.c2{
+    background-color: #17C7BD;
+}
+
+//base
+// Navbar
+.navbar {
+    background: #17C7BD;
+    color: #6D6F70;
+}
+#nav_div_logo {
+        margin-left: 30px;
+    }
+// btn navbar latérale
+.btn_menu {
+        border: solid 1px grey;
+        outline: none;
+        background: #17C7BD;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 10px;
+        // width: 300px;
+        color: #f1f1f1;
+        cursor: pointer;
+    }
+.header_nav{
+    background: #17C7BD;
+}
+.text-nav{
+    color:#6D6F70;
+}
+.bg-nav{
+    background:#EBEBEC;
+}
+//dashboard
+.hello_dashboard{
+    font-size: 30px;
+}

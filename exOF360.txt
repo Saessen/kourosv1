@@ -1,0 +1,41 @@
+Menu OF360
+1 Commercial:
+    Entreprises
+    Contacts
+    Analyse des besoins
+    Devis => redirect to index possibilité voir modifier créer un new + option: convention + dupliquer + facturation
+    Activités
+2 Catalogue
+    Modules
+    Parcours
+    Programmes
+3 Pedagogie
+    Questionnaires
+4 Evenements
+    Formations
+    Apprenants
+    Présences
+5 Administratif
+    Taches
+    Conventions
+    Contrats
+6 Groupes
+    Entreprises
+    Contacts
+    Apprenants
+    Intervenants
+    Questionnaires
+7 Finances
+    Factures
+    Règlements
+    Suivi financier
+    Financeurs
+8 Ressources
+    Intervenants
+    Produits
+    Matériel
+    Lieux
+9 Bilan
+    Bilan pédagogique et financier
+    Qualité
+    Spécialité BPF

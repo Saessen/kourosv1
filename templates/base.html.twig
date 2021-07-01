@@ -3,20 +3,125 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
             <link rel="preconnect" href="https://fonts.gstatic.com">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-        {% endblock %}
+            <link rel="stylesheet" href="{{ asset('css/style.min.css') }}">
 
-        {% block javascripts %}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+        {% block stylesheets %}
         {% endblock %}
     </head>
+
     <body>
+        {# ANCHOR - NAVBAR #}
+            <nav class="navbar sticky-top navbar-light ">
+                <div class="container-fluid">
+                    <div> 
+                               {# btn nav lat #}
+                        <button class="btn btn_menu ms-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">KOUROS FORMATION</button>
+                    </div>
+                    <div>
+                        <a href="#" class="navbar-brand">
+                            <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mon compte">
+                                <i class="fas fa-user fa-2x c1"></i>
+                            </button>
+                        </a>
+                        <a href="#" class="navbar-brand m-0"> 
+                            <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Deconnexion">
+                                <i class="fas fa-sign-out-alt fa-2x c1"></i>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+        {# Nav latérale #}
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header header_nav">
+                <h4 class="">Bienvenue <span class="fw-bold">{ nom }</span></h4>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body bg-nav ">
+                
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item justify-content-center">
+                        <div class="btn-group dropend">
+                            <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-border-all fa-2x text-nav"></i> Tableau de bord </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Accueil</a></li>
+                                <li><a class="dropdown-item" href="#">Mon compte</a></li>
+                            </ul>
+                        </div>
+                        <hr class="bg-secondary">
+                    </li>
+                    <li class="nav-item">
+                    <div class="btn-group dropend">
+                        <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-address-book fa-2x text-nav"></i> Contact </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Prospect</a></li>
+                            <li><a class="dropdown-item" href="#">Client</a></li>
+                            <li><a class="dropdown-item" href="#">OPCO</a></li>
+                        </ul>
+                    </div>
+
+                    <hr class="bg-secondary">
+                    </li>
+                    <li class="nav-item">
+                    <div class="btn-group dropend">
+                        <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-tasks fa-2x text-nav"></i> Gestion </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Devis</a></li>
+                            <li><a class="dropdown-item" href="#">Conventions</a></li>
+                            <li><a class="dropdown-item" href="#">Factures</a></li>
+                            <li><a class="dropdown-item" href="#">Reglements</a></li>
+                        </ul>
+                    </div>
+
+                    <hr class="">
+                    </li>
+                    <li class="nav-item">
+                    <div class="btn-group dropend">
+                        <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-chalkboard-teacher fa-2x text-nav"></i></i> Formateurs </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Liste</a></li>
+                            <li><a class="dropdown-item" href="#">Documents</a></li>
+                            <li><a class="dropdown-item" href="#">Contrats</a></li>
+                        </ul>
+                    </div>
+      
+                    <hr class="bg-secondary">
+                      <li class="nav-item">
+                        <div class="btn-group dropend">
+                            <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-graduation-cap fa-3x text-nav"></i> Formations </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Liste</a></li>
+                                <li><a class="dropdown-item" href="#">Documents</a></li>
+                                <li><a class="dropdown-item" href="#">Contrats</a></li>
+                            </ul>
+                        </div>
+
+                    </li>
+        </ul>
+        <hr class="bg-secondary">
+            </div>
+        </div>
+
+            {# liens JS #}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+        <script>
+        //offCanvas bootstrap
+            var offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'))
+            var offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
+            return new bootstrap.Offcanvas(offcanvasEl)
+            })
+        //tooltip bootstrap
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+        </script>
         {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
