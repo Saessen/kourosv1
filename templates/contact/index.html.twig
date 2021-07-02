@@ -3,18 +3,56 @@
 {% block title %}Hello ContactController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <nav aria-label="breadcrumb m-5">
+    <ol class="breadcrumb m-5">
+        <li class="breadcrumb-item active" aria-current="page">Contact</li>
+    </ol>
+    </nav>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp7-4/htdocs/kourosv1/src/Controller/ContactController.php'|file_link(0) }}">src/Controller/ContactController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp7-4/htdocs/kourosv1/templates/contact/index.html.twig'|file_link(0) }}">templates/contact/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="row justify-content-center">
+            <div class="card text-center col-10">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="true" href="#">Prospect</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('contact_client')}}">Client</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('contact_opco')}}">OPCO</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Derniers prospects</h5>
+                    {#TODO afficher les 10 derniers prospects #}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th scope="col">Entreprise</th>
+                            <th scope="col">Nom Contact</th>
+                            <th scope="col">Demande</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Statut</th>
+                            <th scope="col">Voir</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <th scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><i class="fas fa-eye"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="#" class="btn btn-primary">Liste complète</a>
+                </div>
+            </div>
+    </div>
+
 {% endblock %}

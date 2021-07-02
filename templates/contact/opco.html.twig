@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Devis{% endblock %}
+{% block title %}OPCO{% endblock %}
 
 {% block body %}
 
-    <nav aria-label="breadcrumb m-5">
-    <ol class="breadcrumb m-5">
-        <li class="breadcrumb-item active" aria-current="page">Gestion</li>
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active mt-2" aria-current="page">Contact</li>
     </ol>
     </nav>
 
@@ -15,31 +15,28 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="true" href="#">Devis</a>
+                            <a class="nav-link" href="{{ path('contact')}}">Prospect</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_convention')}}">Conventions</a>
+                            <a class="nav-link " href="{{ path('contact_client')}}">Client</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_facture')}}">Factures</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_reglement')}}">Règlements</a>
+                            <a class="nav-link active" aria-current="true" href="#">OPCO</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Derniers devis</h5>
-                    {#TODO afficher les 10 derniers prospects #}
+                    <h5 class="card-title">Derniers OPCO </h5>
+                    {#TODO afficher les 10 derniers OPCO #}
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                            <th scope="col">Entreprise</th>
-                            <th scope="col">Nom Contact</th>
-                            <th scope="col">Demande</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Statut</th>
-                            <th scope="col">Voir</th> 
+                            <th scope="col">Nom de la société</th>
+                            <th scope="col">Ville</th>
+                            <th scope="col">Téléphone</th>
+                            <th scope="col">Mail</th>
+                            <th scope="col">Site</th>
+                            <th scope="col">Voir</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +50,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a href="#" class="btn btn-primary">Liste complète</a>
+                    <a href="#" class="btn btn-primary">Liste complète des OPCO</a>
                 </div>
             </div>
     </div>

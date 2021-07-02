@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Devis{% endblock %}
+{% block title %}Formations{% endblock %}
 
 {% block body %}
 
     <nav aria-label="breadcrumb m-5">
     <ol class="breadcrumb m-5">
-        <li class="breadcrumb-item active" aria-current="page">Gestion</li>
+        <li class="breadcrumb-item active" aria-current="page">Formations</li>
     </ol>
     </nav>
 
@@ -15,36 +15,39 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="true" href="#">Devis</a>
+                            <a class="nav-link" href="{{ path('formation')}}">Formations</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_convention')}}">Conventions</a>
+                            <a class="nav-link" href="{{ path('formation_sessionCours')}}">Sessions en cours</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_facture')}}">Factures</a>
+                            <a class="nav-link" href="{{ path('formation_sessionVenir')}}">Sessions à venir</a>
                         </li>
+                        {# ANCHOR à conserver? #}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_reglement')}}">Règlements</a>
+                            <a class="nav-link active" aria-current="true" href="{{ path('formation_sessionTermine')}}">Sessions terminées</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Derniers devis</h5>
+                    <h5 class="card-title">Sessions terminées</h5>
                     {#TODO afficher les 10 derniers prospects #}
                     <table class="table table-striped">
                         <thead>
                             <tr>
                             <th scope="col">Entreprise</th>
-                            <th scope="col">Nom Contact</th>
-                            <th scope="col">Demande</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Statut</th>
+                            <th scope="col">Date début</th>
+                            <th scope="col">Date fin</th>
+                            <th scope="col">Lieux</th>
+                            <th scope="col">Formation</th>
+                            <th scope="col">Formateur</th>
                             <th scope="col">Voir</th> 
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                             <th scope="row"></th>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

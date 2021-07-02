@@ -15,10 +15,10 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="true" href="#">Devis</a>
+                            <a class="nav-link" href="{{ path('gestion')}}">Devis</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_convention')}}">Conventions</a>
+                             <a class="nav-link active" aria-current="true" href="{{ path('gestion_convention')}}">Conventions</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('gestion_facture')}}">Factures</a>
@@ -29,22 +29,28 @@
                     </ul>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Derniers devis</h5>
+                    <h5 class="card-title">Dernieres conventions</h5>
                     {#TODO afficher les 10 derniers prospects #}
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                            <th scope="col">Entreprise</th>
-                            <th scope="col">Nom Contact</th>
-                            <th scope="col">Demande</th>
-                            <th scope="col">Date</th>
+                            <th scope="col">Numéro</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Formation</th>
+                            <th scope="col">Niveau</th>
+                            <th scope="col">Prix</th>
                             <th scope="col">Statut</th>
+                            <th scope="col">Durée</th>
+                            <th scope="col">Participants</th>
                             <th scope="col">Voir</th> 
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                             <th scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
