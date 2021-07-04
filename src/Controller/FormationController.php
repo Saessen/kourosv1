@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\FormationsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,10 +11,12 @@ class FormationController extends AbstractController
 {
     #[Route('/formation', name: 'formation')]
     // TODO ajouter le repository formation
-    public function index(): Response
+    public function index(FormationsRepository $formationsRepository): Response
     {
+        $formations = $formationsRepository->findAll();
         return $this->render('formation/index.html.twig', [
             'controller_name' => 'FormationController',
+            'formations'=>$formations
         ]);
     }
     // TODO ajouter le repository session et récupérer les données 

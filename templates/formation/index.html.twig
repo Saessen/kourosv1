@@ -41,14 +41,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                        {% for formation in formations %}
                             <tr>
-                            <th scope="row"></th>
-                            <td></td>
+                            <th scope="row">{{ formation.titre }}</th>
+                            <td>{{ formation.programme}}</td>
                             <td><i class="fas fa-eye"></i></td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
-                    <a href="#" class="btn btn-primary">Liste complète</a>
+                    <a href="{{ path('formations_index')}}" class="btn btn-primary">Liste complète</a>
                 </div>
             </div>
     </div>

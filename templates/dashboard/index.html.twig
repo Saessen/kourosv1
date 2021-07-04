@@ -76,7 +76,7 @@
                         </form>
                         <h6><span class="badge bg-danger">A faire</span></h6>
                     </div>
-                    <ul class="liste-todo text-dark" id="liste-todo">
+                    <ul class="liste-todo text-danger mt-2" id="liste-todo">
                     </ul>
                 </div>
             </div>
@@ -184,7 +184,7 @@
     btn.addEventListener('click', supprimerTache);
     var img = document.createElement('img'); 
     {# TODO voir chemin img #}
-    {# img.setAttribute( 'public/images/fermer.svg'); #}
+    {# img.setAttribute( asset('images/fermer.svg')); #}
     btn.appendChild(img);
     item.appendChild(btn);
 

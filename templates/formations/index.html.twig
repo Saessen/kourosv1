@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des formations{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-1">
+    {# ANCHOR #}
+        <li class="breadcrumb-item"><a href="{{ path('formation')}}">Formation</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Liste complète</li>
+    </ol>
+    </nav>
+    <h1 class="text-center">Liste des formations</h1>  
+    <div class="d-flex justify-content-evenly align-items-center col-10 mt-5">
+        {# Recherche #}
+        <div class="col-3">
+            {{ form(form) }}
+        </div>
+        <div class="col-3">
+            <a href="{{ path('formations_new') }}" class="btn_menu">New</i></a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="card text-center col-10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>PrixJour</th>
+                        <th>Programme</th>
+                        <th>Niveau</th>
+                        <th>Rubrique</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for formation in formations %}
+                    <tr>
+                        <td>{{ formation.titre }}</td>
+                        <td>{{ formation.prixJour }}</td>
+                        <td>{{ formation.programme }}</td>
+                        <td>{{ formation.niveau }}</td>
+                        <td>{{ formation.rubrique }}</td>
+                        <td>
+                            <a href="{{ path('formations_show', {'id': formation.id}) }}"><i class="far fa-eye"></i></a>
+                            <a href="{{ path('formations_edit', {'id': formation.id}) }}"><i class="far fa-edit"></i></a>
+                            <a href="#"><i class="far fa-file-pdf"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+{% endblock %}
