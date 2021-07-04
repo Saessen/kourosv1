@@ -67,15 +67,16 @@
         <div class="col-sm-3">
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
                         <h5 class="card-title">Notification </h5>
+                        <div class="d-flex justify-content-between">
+                        <form>
+                        <label for="item" >Entrez une action</label>
+                        <input type="text" id="item" placeholder="Entrez une action">
+                        <button type="submit" class="mt-2">Envoyer le formulaire</button>
+                        </form>
                         <h6><span class="badge bg-danger">A faire</span></h6>
                     </div>
-                    <ul>
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Phasellus placerat viverra tincidunt</li>
-                    <li>Aenean augue massa</li>
-                    <li>Curabitur dignissim eget</li>
+                    <ul class="liste-todo text-dark" id="liste-todo">
                     </ul>
                 </div>
             </div>
@@ -137,5 +138,77 @@
         }
     });
     {# fin graphique #}
+    {# ToDOList JS #}
+    {# TODO à modifier pour ajouter la recup dynamique #}
+
+    var form = document.querySelector('form');
+    var liste =document.getElementById('liste-todo');
+    var input = document.querySelector('form input');
+    var toutesLesTaches = [];
+
+    form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    var text = input.value.trim();
+    if(text !== ''){
+        rajouterUneTache(text);
+        input.value = '';
+    }
+    })
+
+    function rajouterUneTache(text){
+
+    var todo = {
+        text,
+        // La méthode Dat.now() renvoie le nb de millisecondes écoulées depuis le 1er janvier 1970
+        id: Date.now()
+    }
+    afficherListe(todo);
+    }
+
+    function afficherListe(todo){
+
+    var item = document.createElement('li');
+    item.setAttribute('data-key', todo.id);
+
+    var input = document.createElement('input');
+    input.setAttribute('type', 'checkbox');
+    input.addEventListener('click', tacheFaite);
+    item.appendChild(input);
+
+    var txt = document.createElement('span');
+    txt.innerText = todo.text;
+    item.appendChild(txt);
+
+    var btn = document.createElement('button');
+    btn.addEventListener('click', supprimerTache);
+    var img = document.createElement('img'); 
+    {# TODO voir chemin img #}
+    {# img.setAttribute( 'public/images/fermer.svg'); #}
+    btn.appendChild(img);
+    item.appendChild(btn);
+
+
+    liste.appendChild(item);
+    toutesLesTaches.push(item);
+    console.log(toutesLesTaches);
+    }
+
+    function tacheFaite(e){
+    e.target.parentNode.classList.toggle('finDeTache')
+    }
+
+    function supprimerTache(e) {
+
+    toutesLesTaches.forEach(el => {
+
+        if(e.target.parentNode.getAttribute('data-key') === el.getAttribute('data-key')){
+        el.remove();
+        toutesLesTaches = toutesLesTaches.filter(li => li.dataset.key !== el.dataset.key);
+        }
+
+    })
+
+    }
   </script>
   {% endblock %}
