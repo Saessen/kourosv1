@@ -35,6 +35,7 @@ class ProspectsRepository extends ServiceEntityRepository
                 $query->where(' e.denominationSociale LIKE :mots' )
                 ->orWhere('p.nom LIKE :mots')
                 ->orWhere('p.prenom LIKE :mots')
+                ->orWhere('p.statut LIKE :mots')
                 ->setParameter('mots', '%'.$t[$i].'%');
             }
         }

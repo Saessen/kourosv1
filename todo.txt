@@ -1,0 +1,16 @@
+Voir chemin img pour todolist
+///////////////////////////////////////////////////////
+PROBLEME AFFICHAGE:
+    index formateur => afficher les formations
+///////////////////////////////////////////////////////
+FORMULAIRE PROSPECT:
+    voir pour avoir la possibilité d'écrire une entreprise si non présente dans la liste déroulante
+    Recherche prospect: ne fonctionne pas sur tous 
+//////////////////////////////////////////////////////
+MODIF A FAIRE SUITE ERREUR
+    rassembler toute les recherches sur un seul searchtype
+
+//////////////////////////////////////////////
+MODIFIER LES ICONES EDIT SHOW SUR LES TEMPLATES CLIENTS/FORMATIONS/FORMATEURS/ENTREPRISE: choisir les icones pleines (les plus fines sont en formules payantes)
+/////////////////////////////////////////////
+

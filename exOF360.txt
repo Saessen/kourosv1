@@ -1,3 +1,0 @@
-Voir chemin img pour todolist
-PROBLEME AFFICHAGE:
-    index formateur => afficher les formations

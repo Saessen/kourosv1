@@ -84,9 +84,13 @@ class Entreprise
      */
     private $prospects;
 
+    
+
     public function __construct()
     {
         $this->prospects = new ArrayCollection();
+        $this->clients = new ArrayCollection();
+        $this->clientsActivite = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -270,4 +274,6 @@ class Entreprise
     public function __toString(){
         return $this->denominationSociale;
     }
+
+  
 }

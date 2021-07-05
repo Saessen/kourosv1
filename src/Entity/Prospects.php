@@ -72,6 +72,7 @@ class Prospects
      */
     private $commentaire;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -207,5 +208,10 @@ class Prospects
         $this->commentaire = $commentaire;
 
         return $this;
+    }
+
+    
+    public function __toString(){
+        return $this->nom;
     }
 }
