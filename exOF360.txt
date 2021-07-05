@@ -1,2 +1,3 @@
 Voir chemin img pour todolist
-ANCHOR index formations problème avec le path
+PROBLEME AFFICHAGE:
+    index formateur => afficher les formations

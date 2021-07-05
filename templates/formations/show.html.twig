@@ -3,7 +3,14 @@
 {% block title %}Formations{% endblock %}
 
 {% block body %}
-    <h1>Formations</h1>
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-1">
+        <li class="breadcrumb-item"><a href="{{ path('formation')}}">Formation</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('formations_index')}}">Liste complète</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Fiche formation</li>
+    </ol>
+    </nav>
+    <h1>{{formation.titre}}</h1>
 
     <table class="table">
         <tbody>

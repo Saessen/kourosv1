@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EntrepriseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -76,6 +78,16 @@ class Entreprise
      * @ORM\Column(type="text", nullable=true)
      */
     private $commentaire;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Prospects::class, mappedBy="entreprise")
+     */
+    private $prospects;
+
+    public function __construct()
+    {
+        $this->prospects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -224,5 +236,38 @@ class Entreprise
         $this->commentaire = $commentaire;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Prospects[]
+     */
+    public function getProspects(): Collection
+    {
+        return $this->prospects;
+    }
+
+    public function addProspect(Prospects $prospect): self
+    {
+        if (!$this->prospects->contains($prospect)) {
+            $this->prospects[] = $prospect;
+            $prospect->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProspect(Prospects $prospect): self
+    {
+        if ($this->prospects->removeElement($prospect)) {
+            // set the owning side to null (unless already changed)
+            if ($prospect->getEntreprise() === $this) {
+                $prospect->setEntreprise(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString(){
+        return $this->denominationSociale;
     }
 }

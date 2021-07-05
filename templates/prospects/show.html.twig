@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prospects{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-1">
+        <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('prospects_index')}}">Liste complète</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Fiche prospect</li>
+    </ol>
+    </nav>
+    <h1>{{prospect.nom}} {{prospect.prenom}}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Statut</th>
+                <td>{{ prospect.statut }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ prospect.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ prospect.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ prospect.mail }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ prospect.tel }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ prospect.adresse }}</td>
+            </tr>
+            <tr>
+                <th>CodePostal</th>
+                <td>{{ prospect.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ prospect.ville }}</td>
+            </tr>
+            <tr>
+                <th>Site</th>
+                <td>{{ prospect.site }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('prospects_index') }}">Retour</a>
+
+    <a href="{{ path('prospects_edit', {'id': prospect.id}) }}">Modifier</a>
+
+    {{ include('prospects/_delete_form.html.twig') }}
+{% endblock %}

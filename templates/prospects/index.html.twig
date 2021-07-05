@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Prospects {% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-1">
+        <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Liste complète</li>
+    </ol>
+    </nav>
+    <h1>Liste des prospects</h1>
+
+    {# Recherche #}
+    <div class="d-flex justify-content-evenly align-items-center col-10 mt-5">
+        <div class="col-3">
+            {{ form(form) }}
+        </div>
+        <div class="col-3">
+            <a href="{{ path('prospects_new') }}" class="btn_menu">New</i></a>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="card text-center col-10">
+            <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Statut</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Mail</th>
+                <th>Tel</th>
+                <th>Adresse</th>
+                <th>CodePostal</th>
+                <th>Ville</th>
+                <th>Site</th>
+                <th>Entreprise</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prospect in prospects %}
+            <tr>
+                <td>{{ prospect.statut }}</td>
+                <td>{{ prospect.nom }}</td>
+                <td>{{ prospect.prenom }}</td>
+                <td>{{ prospect.mail }}</td>
+                <td>{{ prospect.tel }}</td>
+                <td>{{ prospect.adresse }}</td>
+                <td>{{ prospect.codePostal }}</td>
+                <td>{{ prospect.ville }}</td>
+                <td>{{ prospect.site }}</td>
+                <td>{{ prospect.entreprise }}</td>
+                <td>
+                    <a href="{{ path('prospects_show', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('prospects_edit', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="far fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

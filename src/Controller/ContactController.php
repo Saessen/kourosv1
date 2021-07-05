@@ -1,19 +1,21 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\ProspectsRepository;
 use App\Repository\EntrepriseRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContactController extends AbstractController
 {
     // TODO ajouter repository prospect et récuperer les données
     #[Route('/contact', name: 'contact')]
-    public function index(): Response
+    public function index(ProspectsRepository $ProspectsRepository): Response
     {
         return $this->render('contact/index.html.twig', [
             'controller_name' => 'ContactController',
+            'prospects'=> $ProspectsRepository->findAll()
         ]);
     }
     // TODO ajouter le repository Client et récupérer les données 

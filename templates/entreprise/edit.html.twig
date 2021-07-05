@@ -1,9 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Entreprise{% endblock %}
+{% block title %}modifier Entreprise{% endblock %}
 
 {% block body %}
-    <h1>Edit Entreprise</h1>
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-1">
+            <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('entreprise_index')}}">Liste des entreprises</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modification</li>
+        </ol>
+</nav>
+    <h1>Modifier {{entreprise.denominationSociale}}</h1>
 
     {{ include('entreprise/_form.html.twig', {'button_label': 'Modifier'}) }}
 

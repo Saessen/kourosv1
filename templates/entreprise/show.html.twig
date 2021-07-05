@@ -3,7 +3,14 @@
 {% block title %}Entreprise{% endblock %}
 
 {% block body %}
-    <h1>Entreprise</h1>
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-1">
+            <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('entreprise_index')}}">Liste des entreprises</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Fiche entreprise</li>
+        </ol>
+</nav>
+    <h1>{{entreprise.denominationSociale}}</h1>
 
     <table class="table">
         <tbody>

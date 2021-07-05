@@ -3,14 +3,16 @@
 {% block title %}Formateurs{% endblock %}
 
 {% block body %}
-    <h1>Formateurs</h1>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-1">
+        <li class="breadcrumb-item"><a href="{{ path('formateurs_index')}}">Liste complète</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Fiche formateur</li>
+    </ol>
+</nav>
+    <h1>{{formateur.nom}} {{formateur.prenom}}</h1>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ formateur.id }}</td>
-            </tr>
             <tr>
                 <th>DenominationSociale</th>
                 <td>{{ formateur.denominationSociale }}</td>

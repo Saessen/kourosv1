@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Formations{% endblock %}
+{% block title %}Modifier Formations{% endblock %}
 
 {% block body %}
-    <h1>Edit Formations</h1>
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-1">
+        <li class="breadcrumb-item"><a href="{{ path('formation')}}">Formation</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('formations_index')}}">Liste complète</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Modification</li>
+    </ol>
+    </nav>
+    <h1>Modifier {{formation.titre}}</h1>
 
-    {{ include('formations/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('formations/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    <a href="{{ path('formations_index') }}">back to list</a>
+    <a href="{{ path('formations_index') }}">retour</a>
 
     {{ include('formations/_delete_form.html.twig') }}
 {% endblock %}
