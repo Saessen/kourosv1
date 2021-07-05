@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FormationController extends AbstractController
 {
     #[Route('/formation', name: 'formation')]
-    // TODO ajouter le repository formation
+    
     public function index(FormationsRepository $formationsRepository): Response
     {
         $formations = $formationsRepository->findAll();

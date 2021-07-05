@@ -5,7 +5,7 @@
 {% block body %}
 
     <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+    <ol class="breadcrumb m-5">
         <li class="breadcrumb-item active mt-2" aria-current="page">Contact</li>
     </ol>
     </nav>
@@ -16,6 +16,9 @@
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('contact')}}">Prospect</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('contact_entreprise')}}">Entreprise</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="{{ path('contact_client')}}">Client</a>

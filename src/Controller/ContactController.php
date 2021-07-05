@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Repository\EntrepriseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +24,18 @@ class ContactController extends AbstractController
     {
         return $this->render('contact/client.html.twig', [
             'controller_name' => 'ContactController',
+        ]);
+    }
+    // TODO ajouter le repository entreprise et récupérer les données 
+    /**
+    * @Route("contact/entreprise/", name="contact_entreprise")
+    */
+    public function entreprise(EntrepriseRepository $EntrepriseRepository):Response
+    {
+        $entreprise = $EntrepriseRepository->findAll();
+        return $this->render('contact/entreprise.html.twig', [
+            'controller_name' => 'ContactController',
+            'entreprise'=>$entreprise
         ]);
     }
     // TODO ajouter le repository OPCO et récupérer les données 

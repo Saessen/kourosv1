@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des entreprises{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-1">
+            <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste complète</li>
+        </ol>
+    </nav>
+    <h1>Liste des entreprises</h1>
+    <div class="d-flex justify-content-evenly align-items-center col-10 mt-5">
+        {# Recherche #}
+        <div class="col-3">
+            {{ form(form) }}
+        </div>
+        <div class="col-3">
+            <a href="{{ path('entreprise_new') }}" class="btn_menu">New</i></a>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="card text-center col-10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        
+                        <th>DenominationSociale</th>
+                        <th>Siren</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>NomFacultatif</th>
+                        <th>PrenomFacultatif</th>
+                        <th>Mail</th>
+                        <th>MailFacultatif</th>
+                        <th>Tel</th>
+                        <th>TelFacultatif</th>
+                        <th>Activite</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entreprise in entreprise %}
+                    <tr>
+                        
+                        <td>{{ entreprise.denominationSociale }}</td>
+                        <td>{{ entreprise.siren }}</td>
+                        <td>{{ entreprise.nom }}</td>
+                        <td>{{ entreprise.prenom }}</td>
+                        <td>{{ entreprise.nomFacultatif }}</td>
+                        <td>{{ entreprise.prenomFacultatif }}</td>
+                        <td>{{ entreprise.mail }}</td>
+                        <td>{{ entreprise.mailFacultatif }}</td>
+                        <td>{{ entreprise.tel }}</td>
+                        <td>{{ entreprise.telFacultatif }}</td>
+                        <td>{{ entreprise.activite }}</td>
+                        <td>
+                            <a href="{{ path('entreprise_show', {'id': entreprise.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="far fa-eye"></i></a>
+                            <a href="{{ path('entreprise_edit', {'id': entreprise.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="far fa-edit"></i></a>
+                            <a href="#"data-bs-toggle="tooltip"  title="document"><i class="far fa-file-alt"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="13">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}
