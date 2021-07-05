@@ -5,19 +5,35 @@ namespace App\Controller;
 use App\Entity\Formateurs;
 use App\Form\FormateursType;
 use App\Repository\FormateursRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\FormationsRepository;
+use 
+Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\SearchFormateursType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/formateurs')]
 class FormateursController extends AbstractController
 {
-    #[Route('/', name: 'formateurs_index', methods: ['GET'])]
-    public function index(FormateursRepository $formateursRepository): Response
-    {
+    #[Route('/', name: 'formateurs_index', methods: ['GET', 'POST'])]
+    public function index(FormateursRepository $formateursRepository, Request $request,): Response
+    {   
+        // recherche 
+        $formateurs = $formateursRepository->findAll();
+        $form= $this->createForm(SearchformateursType::class);
+        $search = $form->handleRequest($request);
+        
+        
+        if($form->isSubmitted() && $form->isValid()){
+            
+            $formateurs= $formateursRepository->search(
+            $search->get('mots')->getData(),
+            );
+        }
         return $this->render('formateurs/index.html.twig', [
-            'formateurs' => $formateursRepository->findAll(),
+            'formateurs' => $formateurs,
+            'form'=> $form->createView(),
         ]);
     }
 

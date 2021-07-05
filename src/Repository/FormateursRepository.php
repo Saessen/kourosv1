@@ -19,6 +19,32 @@ class FormateursRepository extends ServiceEntityRepository
         parent::__construct($registry, Formateurs::class);
     }
 
+    /**
+     * Rechercher les devis en fction du formulaire
+     * @return void
+     */
+    public function search($mots = null){
+        $final1 = str_replace(',', ' ', $mots);
+        $final2 = str_replace(';', ' ', $final1);
+        $final = str_replace('  ', ' ', $final2);
+        $t = explode(' ', $final);
+        $query = $this->createQueryBuilder('f')
+        ->join('f.formations', 'ff');
+        for($i=0; $i<count($t); $i++){
+            if($i==0){
+                $query->where(' f.nom LIKE :mots' )
+                ->orWhere('f.prenom LIKE :mots')
+                ->orWhere('ff.titre LIKE :mots')
+                ->setParameter('mots', '%'.$t[$i].'%');
+        }else{
+            $query->orWhere(' f.nom LIKE :mots'.$i )
+            ->orWhere('p.prenom LIKE :mots'.$i)
+            ->orWhere('ff.titre LIKE :mots')
+            ->setParameter('mots'.$i, '%'.$t[$i].'%');
+        
+        }
+        return $query->getQuery()->getResult();
+    }
     // /**
     //  * @return Formateurs[] Returns an array of Formateurs objects
     //  */
@@ -47,4 +73,5 @@ class FormateursRepository extends ServiceEntityRepository
         ;
     }
     */
+}
 }

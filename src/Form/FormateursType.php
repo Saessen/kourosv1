@@ -6,6 +6,8 @@ use App\Entity\Formateurs;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class FormateursType extends AbstractType
 {
@@ -16,13 +18,13 @@ class FormateursType extends AbstractType
             ->add('siret')
             ->add('nom')
             ->add('prenom')
-            ->add('mail')
+            ->add('mail', EmailType::class)
             ->add('tel')
             ->add('adresse')
             ->add('codePostal')
             ->add('ville')
             ->add('tva')
-            ->add('methode')
+            ->add('methode', ChoiceType::class, ['choices'=>['Distanciel'=>1, 'Présenciel'=>2, 'Distanciel & Présenciel'=>3]])
             ->add('formations')
         ;
     }

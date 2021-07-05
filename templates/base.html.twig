@@ -61,6 +61,7 @@
                             <li><a class="dropdown-item" href="#">Prospect</a></li>
                             <li><a class="dropdown-item" href="#">Client</a></li>
                             <li><a class="dropdown-item" href="#">OPCO</a></li>
+                            <li><a class="dropdown-item" href="{{ path('contact')}}">Voir tout</a></li>
                         </ul>
                     </div>
 
@@ -74,6 +75,7 @@
                             <li><a class="dropdown-item" href="#">Conventions</a></li>
                             <li><a class="dropdown-item" href="#">Factures</a></li>
                             <li><a class="dropdown-item" href="#">Reglements</a></li>
+                            <li><a class="dropdown-item" href="{{ path('gestion')}}">Voir tout</a></li>
                         </ul>
                     </div>
 
@@ -83,7 +85,7 @@
                     <div class="btn-group dropend">
                         <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-chalkboard-teacher fa-2x text-nav"></i></i> Formateurs </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Liste</a></li>
+                            <li><a class="dropdown-item" href="{{ path('formateurs_index')}}#">Liste</a></li>
                         </ul>
                     </div>
       
@@ -94,6 +96,7 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="{{ path('formations_index')}}">Liste</a></li>
                                 <li><a class="dropdown-item" href="#">Sessions</a></li>
+                                <li><a class="dropdown-item" href="{{ path('formation')}}">Voir tout</a></li>
                             </ul>
                         </div>
 

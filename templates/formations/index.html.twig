@@ -5,7 +5,6 @@
 {% block body %}
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb m-1">
-    {# ANCHOR #}
         <li class="breadcrumb-item"><a href="{{ path('formation')}}">Formation</a></li>
         <li class="breadcrumb-item active" aria-current="page">Liste complète</li>
     </ol>
@@ -43,9 +42,9 @@
                         <td>{{ formation.niveau }}</td>
                         <td>{{ formation.rubrique }}</td>
                         <td>
-                            <a href="{{ path('formations_show', {'id': formation.id}) }}"><i class="far fa-eye"></i></a>
-                            <a href="{{ path('formations_edit', {'id': formation.id}) }}"><i class="far fa-edit"></i></a>
-                            <a href="#"><i class="far fa-file-pdf"></i></a>
+                            <a href="{{ path('formations_show', {'id': formation.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="far fa-eye"></i></a>
+                            <a href="{{ path('formations_edit', {'id': formation.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="far fa-edit"></i></a>
+                            <a href="#"data-bs-toggle="tooltip" title="générer PDF"><i class="far fa-file-pdf"></i></a>
                         </td>
                     </tr>
                 {% else %}
