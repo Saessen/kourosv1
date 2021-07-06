@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Devis{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-1">
+            <li class="breadcrumb-item"><a href="{{ path('gestion')}}">Gestion</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('devis_index')}}">Liste des devis</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Détail du devis</li>
+        </ol>
+</nav>
+    <h1>Devis entreprise {{devi.client.entreprise}}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Numéro</th>
+                <td>{{ devi.numeroDevis }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ devi.dateCreation ? devi.dateCreation|date('Y-m-d ') }}</td>
+            </tr>
+            <tr>
+                <th>Nom du contact</th>
+                <td>{{ devi.client }}</td>
+            </tr>
+            <tr>
+                <th>Mail du contact</th>
+                <td>{{ devi.client.mail }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone du contact</th>
+                <td>{{ devi.client.tel }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ devi.client.adresse}}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{ devi.client.codePostal}}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ devi.client.ville}}</td>
+            </tr>
+            <tr>
+                <th>Formation</th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Méthode d'enseignement</th>
+                <td>{{ devi.methode}}</td>
+            </tr>
+            <tr>
+                <th>Date débur</th>
+                <td>{{ devi.dateDebut ? devi.dateDebut|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ devi.dateFin ? devi.dateFin|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>DureeH</th>
+                <td>{{ devi.dureeH }}</td>
+            </tr>
+            <tr>
+                <th>Nombre de stagiaires</th>
+                <td>{{ devi.nbrParticipants }}</td>
+            </tr>
+            <tr>
+                <th>Tarif de la formation </th>
+                <td></td>
+            </tr>
+            <tr>
+                <th>FraisAnnexes</th>
+                <td>{{ devi.fraisAnnexes }}</td>
+            </tr>
+            <tr>
+                <th>T.V.A</th>
+                <td>{{ devi.tva }}</td>
+            </tr>
+            <tr>
+                <th>Tarif TTC</th>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('devis_index') }}">Retour</a>
+
+    <a href="{{ path('devis_edit', {'id': devi.id}) }}"><i class="far fa-edit"></i></a>
+    <a href="#"data-bs-toggle="tooltip" title="générer PDF"><i class="far fa-file-pdf"></i></a>
+    <a href="#"data-bs-toggle="tooltip" title="transformer en facture"><i class="far fa-copy"></i></a>
+    {{ include('devis/_delete_form.html.twig') }}
+{% endblock %}

@@ -13,4 +13,8 @@ MODIFIER LES ICONES EDIT SHOW SUR LES TEMPLATES CLIENTS/FORMATIONS/FORMATEURS/EN
 PROSPECT/CLIENTS
 voir pour mettre role automatique 0 pr prospect 1 pour client et pour la migration de prospect à client changement de role automatiquement
 
+/////////////////////////////////////
+DEVIS 
+index: je n'arrive pas a afficher les formations
+repository: search fctionne pas 
 

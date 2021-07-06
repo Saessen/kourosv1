@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Entreprise;
 use App\Form\EntrepriseType;
 use App\Repository\EntrepriseRepository;
-// use App\Form\SearchEntrepriseType;
 use App\Form\SearchWordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,10 +21,7 @@ class EntrepriseController extends AbstractController
         $entreprise = $entrepriseRepository->findAll();
         $form= $this->createForm(SearchWordType::class);
         $search = $form->handleRequest($request);
-        
-        
         if($form->isSubmitted() && $form->isValid()){
-            
             $entreprise= $entrepriseRepository->search(
             $search->get('mots')->getData(),
             );

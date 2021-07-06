@@ -49,9 +49,15 @@ class Formations
      */
     private $formateurs;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Devis::class, mappedBy="formations")
+     */
+    private $devis;
+
     public function __construct()
     {
         $this->formateurs = new ArrayCollection();
+        $this->devis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,6 +152,33 @@ class Formations
         return $this;
     }
     public function __toString(){
-        return $this->id;
+        return $this->titre;
+    }
+
+    /**
+     * @return Collection|Devis[]
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevi(Devis $devi): self
+    {
+        if (!$this->devis->contains($devi)) {
+            $this->devis[] = $devi;
+            $devi->addFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevi(Devis $devi): self
+    {
+        if ($this->devis->removeElement($devi)) {
+            $devi->removeFormation($this);
+        }
+
+        return $this;
     }
 }

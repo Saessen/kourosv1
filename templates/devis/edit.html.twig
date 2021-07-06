@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le devis{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-1">
+            <li class="breadcrumb-item"><a href="{{ path('gestion')}}">Gestion</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('devis_index')}}">Liste des devis</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modifications</li>
+        </ol>
+</nav>
+    <h1>Modifier le devis {{devi.client.entreprise}}</h1>
+
+    {{ include('devis/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('devis_index') }}">Retour</a>
+
+    {{ include('devis/_delete_form.html.twig') }}
+{% endblock %}

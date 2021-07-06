@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OpcoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,6 +73,16 @@ class Opco
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $ape;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Devis::class, mappedBy="opco")
+     */
+    private $devis;
+
+    public function __construct()
+    {
+        $this->devis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -207,5 +219,38 @@ class Opco
         $this->ape = $ape;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Devis[]
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevi(Devis $devi): self
+    {
+        if (!$this->devis->contains($devi)) {
+            $this->devis[] = $devi;
+            $devi->setOpco($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevi(Devis $devi): self
+    {
+        if ($this->devis->removeElement($devi)) {
+            // set the owning side to null (unless already changed)
+            if ($devi->getOpco() === $this) {
+                $devi->setOpco(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString(){
+        return $this->nom;
     }
 }

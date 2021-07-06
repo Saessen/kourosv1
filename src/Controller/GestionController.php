@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\DevisRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,10 +12,11 @@ class GestionController extends AbstractController
     #[Route('/gestion', name: 'gestion')]
 
      // TODO ajouter le repository devis et récupérer les données 
-    public function index(): Response
+    public function index(DevisRepository $devisRepository): Response
     {
         return $this->render('gestion/index.html.twig', [
             'controller_name' => 'GestionController',
+            'devis'=>$devisRepository->findAll()
         ]);
     }
      // TODO ajouter le repository facture et récupérer les données 

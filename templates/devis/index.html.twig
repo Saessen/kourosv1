@@ -1,39 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion{% endblock %}
+{% block title %}Liste des devis{% endblock %}
 
 {% block body %}
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-1">
+            <li class="breadcrumb-item"><a href="{{ path('gestion')}}">Gestion</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste complète</li>
+        </ol>
+</nav>
+    <h1>Liste des devis</h1>
 
-    <nav aria-label="breadcrumb m-5">
-    <ol class="breadcrumb m-5">
-        <li class="breadcrumb-item active" aria-current="page">Gestion</li>
-    </ol>
-    </nav>
-
+    <div class="d-flex justify-content-evenly align-items-center col-10 mt-5">
+        {# Recherche #}
+        <div class="col-3">
+            {{ form(form) }}
+        </div>
+        <div class="col-3">
+            <a href="{{ path('devis_new') }}" class="btn_menu">New</i></a>
+        </div>
+    </div>
     <div class="row justify-content-center">
-            <div class="card text-center col-10">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="true" href="#">Devis</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_convention')}}">Conventions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_facture')}}">Factures</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('gestion_reglement')}}">Règlements</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Derniers devis</h5>
-                    {#TODO afficher les 10 derniers prospects #}
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
+        <div class="card text-center col-10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
                         <th>NumeroDevis</th>
                         <th>DateCreation</th>
                         <th>Entreprise</th>
@@ -52,9 +43,9 @@
                         <th>Statut</th>
                         <th>actions</th>
                     </tr>
-                        </thead>
-                        <tbody>
-                           {% for devi in devis %}
+                </thead>
+                <tbody>
+                {% for devi in devis %}
                     <tr>
                         <td>{{ devi.numeroDevis }}</td>
                         <td>{{ devi.dateCreation ? devi.dateCreation|date('Y-m-d ') }}</td>
@@ -90,15 +81,19 @@
                         </td>
                         <td>
                             <a href="{{ path('devis_show', {'id': devi.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="far fa-eye"></i></a>
-                            
+                            <a href="{{ path('devis_edit', {'id': devi.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="far fa-edit"></i></a>
+                            <a href="#"data-bs-toggle="tooltip" title="générer PDF"><i class="far fa-file-pdf"></i></a>
+                            <a href="#"data-bs-toggle="tooltip" title="transformer en facture"><i class="far fa-copy"></i></a>
                         </td>
                     </tr>
-                    {% endfor %}
-                        </tbody>
-                    </table>
-                    <a href="{{ path('devis_index')}}" class="btn btn-primary">Liste complète</a>
-                </div>
-            </div>
+                {% else %}
+                    <tr>
+                        <td colspan="12">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
 {% endblock %}
