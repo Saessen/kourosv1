@@ -88,8 +88,11 @@
                         <td>
                             <a href="{{ path('devis_show', {'id': devi.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="far fa-eye"></i></a>
                             <a href="{{ path('devis_edit', {'id': devi.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="far fa-edit"></i></a>
+                            {# ANCHOR BEAUCOUP DE DOCUMENTS VOIR POUR RASSEMBLER DANS UN MODAL  #}
                             <a href="#"data-bs-toggle="tooltip" title="générer PDF"><i class="far fa-file-pdf"></i></a>
-                            <a href="#"data-bs-toggle="tooltip" title="transformer en facture"><i class="far fa-copy"></i></a>
+                            <a href="#"data-bs-toggle="tooltip" title="editer convocation"><i class="far fa-file-alt"></i></a>
+                            <a href="#"data-bs-toggle="tooltip" title="éditer convention"><i class="fas fa-file-invoice"></i></a>
+                            <a href="#"data-bs-toggle="tooltip" title="éditer facture"><i class="far fa-copy"></i></a>
                         </td>
                     </tr>
                 {% else %}
