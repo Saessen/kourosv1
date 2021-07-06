@@ -51,9 +51,9 @@
                         <td>{{ devi.dateCreation ? devi.dateCreation|date('Y-m-d ') }}</td>
                         <td>{{devi.client.entreprise}}</td>
                         <td>{{devi.client}}</td>
-                        ANCHOR
                         
-                        {% for formation in devi %}
+                        ANCHOR
+                        {% for formations in devi %}
                         <td>{{devi.formations}}</td>
                         {% endfor %}
 

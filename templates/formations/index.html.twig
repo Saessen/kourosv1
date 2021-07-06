@@ -39,7 +39,15 @@
                         <td>{{ formation.titre }}</td>
                         <td>{{ formation.prixJour }}</td>
                         <td>{{ formation.programme }}</td>
-                        <td>{{ formation.niveau }}</td>
+                        <td>
+                        {% if formation.niveau == 1  %}
+                        Initiation
+                        {% elseif formation.niveau == 2 %}
+                        Intermédiaire
+                        {% else %}
+                        Confirmé
+                        {% endif %}
+                        </td>
                         <td>{{ formation.rubrique }}</td>
                         <td>
                             <a href="{{ path('formations_show', {'id': formation.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="far fa-eye"></i></a>

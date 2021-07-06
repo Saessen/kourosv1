@@ -47,7 +47,15 @@
                         <td>{{ formateur.ville }}</td>
                         <td>{{ formateur.tva }}</td>
                         {# <td>{{ formateur.formations }}</td> #}
-                        <td>{{ formateur.methode }}</td>
+                        <td>
+                        {% if formateur.methode == 1 %}
+                        Distanciel
+                        {% elseif formateur.methode == 2 %}
+                        Présenciel
+                        {% else %}
+                        Distanciel & Présenciel
+                        {% endif %}
+                        </td>
                         <td>
                             <a href="{{ path('formateurs_show', {'id': formateur.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="far fa-eye"></i></a>
                             <a href="{{ path('formateurs_edit', {'id': formateur.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="far fa-edit"></i></a>

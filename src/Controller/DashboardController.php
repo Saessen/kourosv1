@@ -13,9 +13,9 @@ class DashboardController extends AbstractController
     // TODO ajout des données des entités: Devis + Factures + Sessions 
     public function index(DevisRepository $devisRepository): Response
     {
+        
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
-            'devi'=>$devisRepository->findAll(),
-        ]);
+            'devi'=>$devisRepository->findAll()]);
     }
 }

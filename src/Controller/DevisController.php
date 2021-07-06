@@ -17,8 +17,9 @@ use App\Form\SearchWordType;
 class DevisController extends AbstractController
 {
     #[Route('/', name: 'devis_index', methods: ['GET', 'POST'])]
-    public function index(DevisRepository $devisRepository, Request $request): Response
+    public function index(DevisRepository $devisRepository, Request $request, FormationsRepository $formationsRepository): Response
     {   
+        $formations= $formationsRepository->findAll();
        // recherche 
        $devis = $devisRepository->findAll();
        $form= $this->createForm(SearchWordType::class);
@@ -31,6 +32,7 @@ class DevisController extends AbstractController
        return $this->render('devis/index.html.twig', [
            'devis' => $devis,
            'form'=> $form->createView(),
+           'formations'=>$formations,
        ]);
    }
 
