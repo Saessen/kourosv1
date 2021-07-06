@@ -26,7 +26,7 @@ class ClientsType extends AbstractType
             ->add('site')
             ->add('entreprise')
             ->add('commentaire')
-            ->add('role', ChoiceType::class, ['placeholder'=>'prospect ou client', 'choices'=>
+            ->remove('role', ChoiceType::class, ['placeholder'=>'prospect ou client', 'choices'=>
             ['Prospect'=>0, 'Client'=>1]])
         ;
     }

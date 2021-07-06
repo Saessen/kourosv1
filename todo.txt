@@ -2,19 +2,18 @@ Voir chemin img pour todolist
 ///////////////////////////////////////////////////////
 PROBLEME AFFICHAGE:
     index formateur => afficher les formations
+    DASHBOARD nbr devis en fction du statut
+    DEVIS 
+    index: je n'arrive pas a afficher les formations
 ///////////////////////////////////////////////////////
 FORMULAIRE PROSPECT:
-    voir pour avoir la possibilité d'écrire une entreprise si non présente dans la liste déroulante
+    ajouter formulaire entreprise
     Recherche prospect: ne fonctionne pas sur tous 
 
 //////////////////////////////////////////////
 MODIFIER LES ICONES EDIT SHOW SUR LES TEMPLATES CLIENTS/FORMATIONS/FORMATEURS/ENTREPRISE: choisir les icones pleines (les plus fines sont en formules payantes)
-/////////////////////////////////////////////
-PROSPECT/CLIENTS
-voir pour mettre role automatique 0 pr prospect 1 pour client et pour la migration de prospect à client changement de role automatiquement
 
 /////////////////////////////////////
-DEVIS 
-index: je n'arrive pas a afficher les formations
+
 repository: search fctionne pas 
 

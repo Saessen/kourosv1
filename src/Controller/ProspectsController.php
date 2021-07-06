@@ -66,10 +66,12 @@ class ProspectsController extends AbstractController
     public function new(Request $request): Response
     {
         $prospect = new Prospects();
+        
         $form = $this->createForm(ProspectsType::class, $prospect);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $prospect->setRole('0');
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($prospect);
             $entityManager->flush();
@@ -82,6 +84,17 @@ class ProspectsController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    // Changement de statut prospect->client
+    #[Route('/{id}/migration', name: 'prospects_migration', methods: ['GET', 'POST'])]
+    public function migration(Prospects $prospect): Response
+    {
+        $prospect->setRole('1');
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($prospect);
+        $entityManager->flush();
+        return $this->redirectToRoute('clients_index');
+       
+    }
 
     // new client
     #[Route('/newClients', name: 'prospects_newClients', methods: ['GET', 'POST'])]
@@ -92,11 +105,12 @@ class ProspectsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $prospect->setRole('1');
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($prospect);
             $entityManager->flush();
 
-            return $this->redirectToRoute('prospects_index');
+            return $this->redirectToRoute('prospects_indexClients');
         }
 
         return $this->render('prospects/newClients.html.twig', [

@@ -29,7 +29,7 @@
                         <th>DateCreation</th>
                         <th>Entreprise</th>
                         <th>Nom contact</th>
-                        {# ANCHOR <th>Formation</th> #}
+                        <th>Formation</th>
                         <th>Methode</th>
                         <th>Ville</th>
                         <th>DateDebut</th>
@@ -51,7 +51,12 @@
                         <td>{{ devi.dateCreation ? devi.dateCreation|date('Y-m-d ') }}</td>
                         <td>{{devi.client.entreprise}}</td>
                         <td>{{devi.client}}</td>
-                         {# ANCHOR<td>{{devi.formation}}</td> #}
+                        ANCHOR
+                        
+                        {% for formation in devi %}
+                        <td>{{devi.formations}}</td>
+                        {% endfor %}
+
                         <td>
                         {% if devi.methode == 1 %}
                             Distanciel
@@ -71,6 +76,7 @@
                         <td>{{ devi.tva }}</td>
                         <td>prix.formation x nbr.participants + frais annexes</td>
                         <td>
+                        
                         {% if devi.statut == 0 %}
                             <span class="badge bg-info text-dark">En cours</span>
                         {% elseif devi.statut == 1 %}

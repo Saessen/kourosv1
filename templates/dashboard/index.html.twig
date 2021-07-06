@@ -18,7 +18,15 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h5 class="card-title">Devis </h5>
+                        <h5 class="card-title">
+                        Devis
+                            {# {% if devi.statut[1] %}
+                            {{devi|length}}
+                            {% endif %} #}
+                            {# {{devi.statut[1]|length}} #}
+
+                        </h5>
+
                         <h6><span class="badge bg-success"> Accepté</span></h6>
                     </div>
                     <p class="card-text">{nbr}</p>
