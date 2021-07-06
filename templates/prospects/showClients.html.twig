@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Prospects{% endblock %}
+{% block title %}Clients{% endblock %}
 
 {% block body %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb m-1">
         <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
-        <li class="breadcrumb-item"><a href="{{ path('prospects_index')}}">Liste complète</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Fiche prospect</li>
+        <li class="breadcrumb-item"><a href="{{ path('clients_index')}}">Liste complète</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Fiche client</li>
     </ol>
 </nav>
     <h1>{{prospect.nom}} {{prospect.prenom}}</h1>
@@ -53,9 +53,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('prospects_index') }}">Retour</a>
+    <a href="{{ path('clients_index') }}">Retour</a>
 
-    <a href="{{ path('prospects_edit', {'id': prospect.id}) }}">Modifier</a>
+    <a href="{{ path('prospects_editClients', {'id': prospect.id}) }}">Modifier</a>
 
     {{ include('prospects/_delete_form.html.twig') }}
 {% endblock %}

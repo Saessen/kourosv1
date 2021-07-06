@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste Prospects {% endblock %}
+{% block title %}Liste Client {% endblock %}
 
 {% block body %}
     <nav aria-label="breadcrumb">
@@ -9,7 +9,7 @@
         <li class="breadcrumb-item active" aria-current="page">Liste complète</li>
     </ol>
     </nav>
-    <h1>Liste des prospects</h1>
+    <h1>Liste des Clients</h1>
 
     {# Recherche #}
     <div class="d-flex justify-content-evenly align-items-center col-10 mt-5">
@@ -17,7 +17,7 @@
             {{ form(form) }}
         </div>
         <div class="col-3">
-            <a href="{{ path('prospects_new') }}" class="btn_menu">New</i></a>
+            <a href="{{ path('prospects_newClients') }}" class="btn_menu">New</i></a>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -41,7 +41,7 @@
         </thead>
         <tbody>
         {% for prospect in prospects %}
-        {% if prospect.role == 0 %}
+        {% if prospect.role == 1 %}
             <tr>
                 <td>
                 {% if prospect.statut == 1%}
@@ -61,8 +61,8 @@
                 <td>{{ prospect.entreprise }}</td>
                 <td>{{ prospect.commentaire }}</td>
                 <td>
-                    <a href="{{ path('prospects_show', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="fas fa-eye"></i></i></a>
-                    <a href="{{ path('prospects_edit', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="fas fa-user-edit"></i></a>
+                    <a href="{{ path('prospects_showClients', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="fas fa-eye"></i></i></a>
+                    <a href="{{ path('prospects_editClients', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="fas fa-user-edit"></i></a>
                     {# <a href="{{ path('addClients', {id: prospect.id}) }}">Client</a> #}
                     <a href="#"data-bs-toggle="tooltip" title="créer le devis"><i class="fas fa-edit"></i></a>
                     <a href="#"data-bs-toggle="tooltip" title="Migrer en client"><i class="fas fa-user-plus"></i></a>

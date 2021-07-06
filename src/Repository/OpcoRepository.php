@@ -19,6 +19,27 @@ class OpcoRepository extends ServiceEntityRepository
         parent::__construct($registry, Opco::class);
     }
 
+    /**
+     * Rechercher les devis en fction du formulaire
+     * @return void
+     */
+    public function search($mots = null){
+        $final1 = str_replace(',', ' ', $mots);
+        $final2 = str_replace(';', ' ', $final1);
+        $final = str_replace('  ', ' ', $final2);
+        $t = explode(' ', $final);
+        $query = $this->createQueryBuilder('o');
+        for($i=0; $i<count($t); $i++){
+            if($i==0){
+                $query->where(' o.nom LIKE :mots' )
+                ->orWhere('o.nomContact LIKE :mots')
+                ->orWhere('o.ville LIKE :mots')
+                ->setParameter('mots', '%'.$t[$i].'%');
+            }
+        }
+        return $query->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Opco[] Returns an array of Opco objects
     //  */

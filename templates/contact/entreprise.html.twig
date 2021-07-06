@@ -55,7 +55,7 @@
                             <td>{{entreprise.tel}}</td>
                             <td>{{entreprise.activite}}</td>
                             <td>{{entreprise.commentaire}}</td>
-                            <td><i class="fas fa-eye"></i></td>
+                            <td><a href="{{ path('entreprise_show', {'id': entreprise.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="fas fa-eye"></i></i></a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

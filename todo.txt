@@ -6,11 +6,11 @@ PROBLEME AFFICHAGE:
 FORMULAIRE PROSPECT:
     voir pour avoir la possibilité d'écrire une entreprise si non présente dans la liste déroulante
     Recherche prospect: ne fonctionne pas sur tous 
-//////////////////////////////////////////////////////
-MODIF A FAIRE SUITE ERREUR
-    rassembler toute les recherches sur un seul searchtype
 
 //////////////////////////////////////////////
 MODIFIER LES ICONES EDIT SHOW SUR LES TEMPLATES CLIENTS/FORMATIONS/FORMATEURS/ENTREPRISE: choisir les icones pleines (les plus fines sont en formules payantes)
 /////////////////////////////////////////////
+PROSPECT/CLIENTS
+voir pour mettre role automatique 0 pr prospect 1 pour client et pour la migration de prospect à client changement de role automatiquement
+
 

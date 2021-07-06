@@ -9,7 +9,7 @@ use App\Repository\FormationsRepository;
 use 
 Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\SearchFormateursType;
+use App\Form\SearchWordType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,7 +21,7 @@ class FormateursController extends AbstractController
     {   
         // recherche 
         $formateurs = $formateursRepository->findAll();
-        $form= $this->createForm(SearchformateursType::class);
+        $form= $this->createForm(SearchWordType::class);
         $search = $form->handleRequest($request);
         
         

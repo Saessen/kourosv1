@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Formations;
 use App\Form\FormationsType;
-use App\Form\SearchFormationsType;
+use App\Form\SearchWordType;
 use App\Repository\FormationsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +19,7 @@ class FormationsController extends AbstractController
     {   
         // recherche 
         $formations = $formationsRepository->findAll();
-        $form= $this->createForm(SearchformationsType::class);
+        $form= $this->createForm(SearchWordType::class);
         $search = $form->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()){

@@ -1,20 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifications{% endblock %}
+{% block title %}Nouveau client{% endblock %}
 
 {% block body %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb m-1">
         <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
         <li class="breadcrumb-item"><a href="{{ path('prospects_index')}}">Liste complète</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Fiche client</li>
+        <li class="breadcrumb-item active" aria-current="page">Ajout</li>
     </ol>
 </nav>
-    <h1>Modifications de la fiche {{prospect.nom}} {{prospect.prenom}}</h1>
+    <h1>Ajouter un client</h1>
 
-    {{ include('prospects/_form.html.twig', {'button_label': 'Modifier'}) }}
+    {{ include('prospects/_form.html.twig') }}
 
     <a href="{{ path('prospects_index') }}">Retour</a>
-
-    {{ include('prospects/_delete_form.html.twig') }}
 {% endblock %}

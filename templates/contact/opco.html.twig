@@ -43,17 +43,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                        {% for opco in opco %}
                             <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><i class="fas fa-eye"></i></td>
+                                
+                                <td>{{ opco.nom }}</td>
+                                <td>{{ opco.ville }}</td>
+                                <td>{{ opco.tel }}</td>
+                                <td>{{ opco.mail }}</td>
+                                <td>{{ opco.site }}</td>
+                                <td><a href="{{ path('opco_show', {'id': opco.id}) }} "data-bs-toggle="tooltip" title="voir"><i class="fas fa-eye"></i></i></a></td>
                             </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
-                    <a href="#" class="btn btn-primary">Liste complète des OPCO</a>
+                    <a href="{{ path('opco_index')}}" class="btn btn-primary">Liste complète des OPCO</a>
                 </div>
             </div>
     </div>

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Opco{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-1">
+        <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('opco_index')}}">Liste complète</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Fiche prospect</li>
+    </ol>
+</nav>
+    <h1>{{opco.nom}}</h1>
+
+    <table class="table">
+        <tbody>
+            
+            <tr>
+                <th>Nom</th>
+                <td>{{ opco.nom }}</td>
+            </tr>
+            <tr>
+                <th>NomContact</th>
+                <td>{{ opco.nomContact }}</td>
+            </tr>
+            <tr>
+                <th>PrenomContact</th>
+                <td>{{ opco.prenomContact }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ opco.mail }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ opco.tel }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ opco.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ opco.ville }}</td>
+            </tr>
+            <tr>
+                <th>CodePostal</th>
+                <td>{{ opco.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Tva</th>
+                <td>{{ opco.tva }}</td>
+            </tr>
+            <tr>
+                <th>Site</th>
+                <td>{{ opco.site }}</td>
+            </tr>
+            <tr>
+                <th>Ape</th>
+                <td>{{ opco.ape }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('opco_index') }}">Retour</a>
+
+    <a href="{{ path('opco_edit', {'id': opco.id}) }}">Modifier</a>
+
+    {{ include('opco/_delete_form.html.twig') }}
+{% endblock %}

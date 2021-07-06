@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des OPCO{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-1">
+            <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liste complète</li>
+        </ol>
+    </nav>
+    <h1>Liste des OPCO</h1>
+
+    <div class="d-flex justify-content-evenly align-items-center col-10 mt-5">
+        {# Recherche #}
+        <div class="col-3">
+            {{ form(form) }}
+        </div>
+        <div class="col-3">
+            <a href="{{ path('opco_new') }}" class="btn_menu">New</i></a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="card text-center col-10">
+            <table class="table table-striped">
+        <thead>
+            <tr>
+                
+                <th>Nom</th>
+                <th>NomContact</th>
+                <th>PrenomContact</th>
+                <th>Mail</th>
+                <th>Tel</th>
+                <th>Adresse</th>
+                <th>Ville</th>
+                <th>CodePostal</th>
+                <th>Tva</th>
+                <th>Site</th>
+                <th>Ape</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for opco in opco %}
+            <tr>
+                
+                <td>{{ opco.nom }}</td>
+                <td>{{ opco.nomContact }}</td>
+                <td>{{ opco.prenomContact }}</td>
+                <td>{{ opco.mail }}</td>
+                <td>{{ opco.tel }}</td>
+                <td>{{ opco.adresse }}</td>
+                <td>{{ opco.ville }}</td>
+                <td>{{ opco.codePostal }}</td>
+                <td>{{ opco.tva }}</td>
+                <td>{{ opco.site }}</td>
+                <td>{{ opco.ape }}</td>
+                <td>
+                    <a href="{{ path('opco_show', {'id': opco.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="far fa-eye"></i></a>
+                    <a href="{{ path('opco_edit', {'id': opco.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="far fa-edit"></i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+   
+{% endblock %}

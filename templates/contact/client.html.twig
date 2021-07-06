@@ -36,26 +36,39 @@
                             <tr>
                             <th scope="col">Entreprise</th>
                             <th scope="col">Nom Contact</th>
-                            <th scope="col">Prénom Contact</th>
+                            <th scope="col">Prenom Contact</th>
                             <th scope="col">Mail</th>
+                            <th scope="col">Télephone</th>
+                            <th scope="col">Adresse</th>
+                            <th scope="col">Code postal</th>
+                            <th scope="col">Ville</th>
+                            <th scope="col">Site</th>
+                            {# <th scope="col">Mail</th>
                             <th scope="col">Teléphone</th>
-                            <th scope="col">Statut</th>
+                             #}
                             <th scope="col">Voir</th> 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><i class="fas fa-eye"></i></td>
-                            </tr>
+                            {% for prospect in prospects %}
+                                {% if prospect.role == 1 %}
+                                    <tr>
+                                        <th scope="row">{{prospect.entreprise}}</th>
+                                        <td>{{prospect.nom}}</td>
+                                        <td>{{prospect.prenom}}</td>
+                                        <td>{{prospect.mail}}</td>
+                                        <td>{{prospect.tel}}</td>
+                                        <td>{{prospect.adresse}}</td>
+                                        <td>{{prospect.codePostal}}</td>
+                                        <td>{{prospect.ville}}</td>
+                                        <td>{{prospect.site}}</td>
+                                        <td><a href="{{ path('prospects_showClients', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="fas fa-eye"></i></i></a></td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
                         </tbody>
                     </table>
-                    <a href="#" class="btn btn-primary">Liste complète</a>
+                    <a href="{{path('clients_index')}}" class="btn btn-primary">Liste complète</a>
                 </div>
             </div>
     </div>

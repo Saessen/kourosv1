@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifications{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-1">
+        <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('opco_index')}}">Liste complète</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Fiche OPCO</li>
+    </ol>
+</nav>
+    <h1>Modifications de la fiche {{opco.nom}}</h1>
+
+    {{ include('opco/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('opco_index') }}">Retour</a>
+
+    {{ include('opco/_delete_form.html.twig') }}
+{% endblock %}

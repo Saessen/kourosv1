@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un OPCO{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-1">
+        <li class="breadcrumb-item"><a href="{{ path('contact')}}">Contact</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('opco_index')}}">Liste complète</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Ajout</li>
+    </ol>
+</nav>
+    <h1>Ajouter un OPCO</h1>
+
+    {{ include('opco/_form.html.twig') }}
+
+    <a href="{{ path('opco_index') }}">Retour</a>
+{% endblock %}

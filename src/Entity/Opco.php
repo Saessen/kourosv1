@@ -18,22 +18,22 @@ class Opco
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=100)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $nomContact;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $prenomContact;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=100)
      */
     private $mail;
 
@@ -43,14 +43,9 @@ class Opco
     private $tel;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=100)
      */
     private $adresse;
-
-    /**
-     * @ORM\Column(type="string", length=5)
-     */
-    private $codePostal;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -58,14 +53,24 @@ class Opco
     private $ville;
 
     /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $codePostal;
+
+    /**
      * @ORM\Column(type="float", nullable=true)
      */
     private $tva;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $site;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ape;
 
     public function getId(): ?int
     {
@@ -113,7 +118,7 @@ class Opco
         return $this->mail;
     }
 
-    public function setMail(?string $mail): self
+    public function setMail(string $mail): self
     {
         $this->mail = $mail;
 
@@ -144,18 +149,6 @@ class Opco
         return $this;
     }
 
-    public function getCodePostal(): ?string
-    {
-        return $this->codePostal;
-    }
-
-    public function setCodePostal(string $codePostal): self
-    {
-        $this->codePostal = $codePostal;
-
-        return $this;
-    }
-
     public function getVille(): ?string
     {
         return $this->ville;
@@ -164,6 +157,18 @@ class Opco
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getCodePostal(): ?string
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(string $codePostal): self
+    {
+        $this->codePostal = $codePostal;
 
         return $this;
     }
@@ -188,6 +193,18 @@ class Opco
     public function setSite(?string $site): self
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    public function getApe(): ?string
+    {
+        return $this->ape;
+    }
+
+    public function setApe(?string $ape): self
+    {
+        $this->ape = $ape;
 
         return $this;
     }

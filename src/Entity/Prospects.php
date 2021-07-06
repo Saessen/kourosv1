@@ -72,6 +72,11 @@ class Prospects
      */
     private $commentaire;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $role;
+
 
     public function getId(): ?int
     {
@@ -213,5 +218,17 @@ class Prospects
     
     public function __toString(){
         return $this->nom;
+    }
+
+    public function getRole(): ?bool
+    {
+        return $this->role;
+    }
+
+    public function setRole(bool $role): self
+    {
+        $this->role = $role;
+
+        return $this;
     }
 }
