@@ -16,6 +16,11 @@ class DashboardController extends AbstractController
         
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
-            'devi'=>$devisRepository->findAll()]);
+            'devi'=>$devisRepository->findAll(),
+            'devisValide'=>$devisRepository->findBy(['statut'=>'1']),
+            'devisCours'=>$devisRepository->findBy(['statut'=>'0']),
+            'devisRejete'=>$devisRepository->findBy(['statut'=>'2']),
+        ]);
+        
     }
 }

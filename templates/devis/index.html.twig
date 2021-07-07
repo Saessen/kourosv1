@@ -36,7 +36,7 @@
                         <th>DateFin</th>
                         <th>Duree en heures</th>
                         <th>NbrParticipants</th>
-                        {#ANCHOR <th>Tarif formation</th> #}
+                        ANCHOR <th>Tarif formation</th>
                         <th>FraisAnnexes</th>
                         <th>Tva</th>
                         <th>Cout total</th>
@@ -52,9 +52,9 @@
                         <td>{{devi.client.entreprise}}</td>
                         <td>{{devi.client}}</td>
                         
-                        ANCHOR
-                        {% for formations in devi %}
-                        <td>{{devi.formations}}</td>
+                        {# ANCHOR #}
+                        {% for formations in devi.formations %}
+                        <td>{{formations.titre}}</td>
                         {% endfor %}
 
                         <td>
@@ -71,7 +71,9 @@
                         <td>{{ devi.dateFin ? devi.dateFin|date('Y-m-d ') }}</td>
                         <td>{{ devi.dureeH }}</td>
                         <td>{{ devi.nbrParticipants }}</td>
-                        {#ANCHOR <td>{{devi.formation.prix}}</td> #}
+                        {% for formations in devi.formations %}
+                        <td>{{formations.prixJour}}</td>
+                        {% endfor %}
                         <td>{{ devi.fraisAnnexes }}</td>
                         <td>{{ devi.tva }}</td>
                         <td>prix.formation x nbr.participants + frais annexes</td>
@@ -90,7 +92,7 @@
                             <a href="{{ path('devis_edit', {'id': devi.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="far fa-edit"></i></a>
                             {# ANCHOR BEAUCOUP DE DOCUMENTS VOIR POUR RASSEMBLER DANS UN MODAL  #}
                             <a href="#"data-bs-toggle="tooltip" title="générer PDF"><i class="far fa-file-pdf"></i></a>
-                            <a href="#"data-bs-toggle="tooltip" title="editer convocation"><i class="far fa-file-alt"></i></a>
+                            <a href="#"data-bs-toggle="tooltip" title="editer convocations"><i class="far fa-file-alt"></i></a>
                             <a href="#"data-bs-toggle="tooltip" title="éditer convention"><i class="fas fa-file-invoice"></i></a>
                             <a href="#"data-bs-toggle="tooltip" title="éditer facture"><i class="far fa-copy"></i></a>
                         </td>

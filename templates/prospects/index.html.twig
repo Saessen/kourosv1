@@ -61,33 +61,124 @@
                 <td>{{ prospect.entreprise }}</td>
                 <td>{{ prospect.commentaire }}</td>
                 <td>
-                    <a href="{{ path('prospects_show', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="voir"><button type="button" class="btn"><i class="far fa-eye"></i></button></a>
-                    <a href="{{ path('prospects_edit', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="modifier"><button type="button" class="btn"><i class="fas fa-user-edit"></i></button></a>
-                    <a href="#"data-bs-toggle="tooltip" title="créer le devis"><button type="button" class="btn"><i class="fas fa-edit"></i></button></a>
-                    {# ANCHOR MIGRATION prospect->client ajouter un modal  #}
-                    <a href="{{ path('prospects_migration',{'id': prospect.id})}}"data-bs-toggle="tooltip" title="migrer en client"><button type="button" class="btn"><i class="fas fa-user-plus"></i></button></a>
-                    
-                    {# <button type="button" class="btn" data-bs-toggle="modal tooltip" title="Migrer en client" data-bs-target="#exampleModal">
-                    <i class="fas fa-user-plus"></i>
+                    <!-- Full screen modal -->
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal1"data-bs-toggle="tooltip" title="migrer en client">
+                    <i class="far fa-eye"></i>
                     </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Fiche prospect</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                    <div class="modal-body">
+                                        <h1>{{prospect.nom}} {{prospect.prenom}}</h1>
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Statut</th>
+                                                    <td>
+                                                    {% if prospect.statut == 1 %}
+                                                    Entreprise
+                                                    {% else %}
+                                                    Particulier
+                                                    {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Nom</th>
+                                                    <td>{{ prospect.nom }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Prenom</th>
+                                                    <td>{{ prospect.prenom }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Mail</th>
+                                                    <td>{{ prospect.mail }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tel</th>
+                                                    <td>{{ prospect.tel }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Adresse</th>
+                                                    <td>{{ prospect.adresse }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>CodePostal</th>
+                                                    <td>{{ prospect.codePostal }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ville</th>
+                                                    <td>{{ prospect.ville }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Site</th>
+                                                    <td>{{ prospect.site }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="d-flex justify-content-center">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"data-bs-toggle="tooltip" title="migrer en client">
+                                        <i class="fas fa-user-plus"></i>
+                                        </button>
+                                        <a href="#"data-bs-toggle="tooltip" title="créer le devis"><button type="button" class="btn"><i class="fas fa-edit"></i></button></a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Transformer en client</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                                                        aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Souhaitez vous confirmer la migration du prospect {{prospect.nom}} {{prospect.prenom}} en client?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                        <a href="{{ path('prospects_migration',{'id': prospect.id})}}"data-bs-toggle="tooltip" title="migrer en client"><button type="button" class="btn btn-success">Oui</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="{{ path('prospects_edit', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="modifier"><button type="button" class="btn"><i class="fas fa-user-edit"></i></button></a>
+                                        {{ include('prospects/_delete_form.html.twig') }}
+                                        </div>
                                     </div>
-                                <div class="modal-body">
-                                    Souhaitez vous enregistrer {{prospect.nom}} {{prospect.prenom}} comme client?
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{ path('prospects_migration',{'id': prospect.id})}}"><button type="button" class="btn btn-primary">Oui</button></a>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
-                                </div>
                                 </div>
                             </div>
-                        </div> #}
+                        </div>
+
+                    {# fin test #}
+                    <a href="{{ path('prospects_edit', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="modifier"><button type="button" class="btn"><i class="fas fa-user-edit"></i></button></a>
+                    <a href="#"data-bs-toggle="tooltip" title="créer le devis"><button type="button" class="btn"><i class="fas fa-edit"></i></button></a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"data-bs-toggle="tooltip" title="migrer en client">
+                    <i class="fas fa-user-plus"></i>
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Transformer en client</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Souhaitez vous confirmer la migration du prospect {{prospect.nom}} {{prospect.prenom}} en client?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    <a href="{{ path('prospects_migration',{'id': prospect.id})}}"data-bs-toggle="tooltip" title="migrer en client"><button type="button" class="btn btn-success">Oui</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         {% endif %}
@@ -96,10 +187,12 @@
     </table>
 
 
-
- {% block javascripts %}
+{% endblock %}
+{% block javascripts %}
     <script>
-
+        var popover = new bootstrap.Popover(document.querySelector('.example-popover'), {
+  container: 'body'
+})
     </script> 
 {% endblock %}
-{% endblock %}
+

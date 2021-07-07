@@ -20,16 +20,12 @@
                     <div class="d-flex justify-content-between">
                         <h5 class="card-title">
                         Devis
-                            {# {% if devi.statut[1] %}
-                            {{devi|length}}
-                            {% endif %} #}
-                            {# {{devi.statut[1]|length}} #}
-
                         </h5>
-
                         <h6><span class="badge bg-success"> Accepté</span></h6>
                     </div>
-                    <p class="card-text">{nbr}</p>
+                    <p class="card-text fw-bold">
+                        {{devisValide|length}}
+                    </p>
                 </div>
             </div>
         </div>
@@ -119,7 +115,7 @@
             labels: ['devis accepté', 'devis rejeté', 'devis en attente', 'facture en cours', 'facture réglé'],
             datasets: [{
                 label: 'chiffre',
-                data: [12, 19, 3, 5, 2],
+                data: [{{devisValide|length}}, {{devisRejete|length}}, {{devisCours|length}}, 5, 2],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -146,9 +142,9 @@
         }
     });
     {# fin graphique #}
+
     {# ToDOList JS #}
     {# TODO à modifier pour ajouter la recup dynamique #}
-
     var form = document.querySelector('form');
     var liste =document.getElementById('liste-todo');
     var input = document.querySelector('form input');
@@ -156,16 +152,13 @@
 
     form.addEventListener('submit', event => {
     event.preventDefault();
-
     var text = input.value.trim();
     if(text !== ''){
         rajouterUneTache(text);
         input.value = '';
     }
     })
-
     function rajouterUneTache(text){
-
     var todo = {
         text,
         // La méthode Dat.now() renvoie le nb de millisecondes écoulées depuis le 1er janvier 1970
@@ -173,21 +166,16 @@
     }
     afficherListe(todo);
     }
-
     function afficherListe(todo){
-
     var item = document.createElement('li');
     item.setAttribute('data-key', todo.id);
-
     var input = document.createElement('input');
     input.setAttribute('type', 'checkbox');
     input.addEventListener('click', tacheFaite);
     item.appendChild(input);
-
     var txt = document.createElement('span');
     txt.innerText = todo.text;
     item.appendChild(txt);
-
     var btn = document.createElement('button');
     btn.addEventListener('click', supprimerTache);
     var img = document.createElement('img'); 
@@ -195,28 +183,21 @@
     {# img.setAttribute{( asset('images/fermer.svg')}); #}
     btn.appendChild(img);
     item.appendChild(btn);
-
-
     liste.appendChild(item);
     toutesLesTaches.push(item);
     console.log(toutesLesTaches);
     }
-
     function tacheFaite(e){
     e.target.parentNode.classList.toggle('finDeTache')
     }
-
     function supprimerTache(e) {
-
     toutesLesTaches.forEach(el => {
-
         if(e.target.parentNode.getAttribute('data-key') === el.getAttribute('data-key')){
         el.remove();
         toutesLesTaches = toutesLesTaches.filter(li => li.dataset.key !== el.dataset.key);
         }
-
     })
-
     }
+    {# fin todolist #}
   </script>
   {% endblock %}
