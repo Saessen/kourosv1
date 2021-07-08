@@ -84,6 +84,11 @@ class Devis
      */
     private $statut;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Conventions::class, mappedBy="devis", cascade={"persist", "remove"})
+     */
+    private $conventions;
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
@@ -275,5 +280,22 @@ class Devis
     }
     public function __toString(){
         return $this->id;
+    }
+
+    public function getConventions(): ?Conventions
+    {
+        return $this->conventions;
+    }
+
+    public function setConventions(Conventions $conventions): self
+    {
+        // set the owning side of the relation if necessary
+        if ($conventions->getDevis() !== $this) {
+            $conventions->setDevis($this);
+        }
+
+        $this->conventions = $conventions;
+
+        return $this;
     }
 }

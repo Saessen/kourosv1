@@ -56,6 +56,28 @@
     <a href="{{ path('prospects_index') }}">Retour</a>
 
     <a href="{{ path('prospects_edit', {'id': prospect.id}) }}">Modifier</a>
+    <!-- Button trigger modal -->
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"data-bs-toggle="tooltip" title="migrer en client">
+                    <i class="fas fa-user-plus"></i>
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Transformer en client</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Souhaitez vous confirmer la migration du prospect {{prospect.nom}} {{prospect.prenom}} en client?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    <a href="{{ path('prospects_migration',{'id': prospect.id})}}"data-bs-toggle="tooltip" title="migrer en client"><button type="button" class="btn btn-success">Oui</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
     {{ include('prospects/_delete_form.html.twig') }}
 {% endblock %}

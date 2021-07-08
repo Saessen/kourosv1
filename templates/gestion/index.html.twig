@@ -38,14 +38,14 @@
                         <th>DateCreation</th>
                         <th>Entreprise</th>
                         <th>Nom contact</th>
-                        {# ANCHOR <th>Formation</th> #}
+                        <th>Formation</th> 
                         <th>Methode</th>
                         <th>Ville</th>
                         <th>DateDebut</th>
                         <th>DateFin</th>
                         <th>Duree en heures</th>
                         <th>NbrParticipants</th>
-                        {#ANCHOR <th>Tarif formation</th> #}
+                        <th>Tarif formation</th>
                         <th>FraisAnnexes</th>
                         <th>Tva</th>
                         <th>Cout total</th>
@@ -60,7 +60,10 @@
                         <td>{{ devi.dateCreation ? devi.dateCreation|date('Y-m-d ') }}</td>
                         <td>{{devi.client.entreprise}}</td>
                         <td>{{devi.client}}</td>
-                         {# ANCHOR<td>{{devi.formation}}</td> #}
+                        
+                        {% for formations in devi.formations %}
+                        <td>{{formations.titre}}</td>
+                        {% endfor %}
                         <td>
                         {% if devi.methode == 1 %}
                             Distanciel
@@ -75,10 +78,15 @@
                         <td>{{ devi.dateFin ? devi.dateFin|date('Y-m-d ') }}</td>
                         <td>{{ devi.dureeH }}</td>
                         <td>{{ devi.nbrParticipants }}</td>
-                        {#ANCHOR <td>{{devi.formation.prix}}</td> #}
+                        
+                        {% for formations in devi.formations %}
+                        <td>{{formations.prixJour}}</td>
+                        {% endfor %}
                         <td>{{ devi.fraisAnnexes }}</td>
                         <td>{{ devi.tva }}</td>
-                        <td>prix.formation x nbr.participants + frais annexes</td>
+                        {% for formations in devi.formations %}
+                        <td>{{(formations.prixJour * devi.nbrParticipants) + devi.fraisAnnexes}}</td>
+                        {% endfor %}
                         <td>
                         {% if devi.statut == 0 %}
                             <span class="badge bg-info text-dark">En cours</span>

@@ -62,15 +62,15 @@
                 <td>{{ prospect.commentaire }}</td>
                 <td>
                     <!-- Full screen modal -->
-                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal1"data-bs-toggle="tooltip" title="migrer en client">
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal1"data-bs-toggle="tooltip" title="voir fiche prospect">
                     <i class="far fa-eye"></i>
                     </button>
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                         <div class="modal-dialog modal-fullscreen">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Fiche prospect</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel1">Fiche prospect</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                     <div class="modal-body">
@@ -122,30 +122,6 @@
                                             </tbody>
                                         </table>
                                         <div class="d-flex justify-content-center">
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"data-bs-toggle="tooltip" title="migrer en client">
-                                        <i class="fas fa-user-plus"></i>
-                                        </button>
-                                        <a href="#"data-bs-toggle="tooltip" title="créer le devis"><button type="button" class="btn"><i class="fas fa-edit"></i></button></a>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Transformer en client</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                                                        aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Souhaitez vous confirmer la migration du prospect {{prospect.nom}} {{prospect.prenom}} en client?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                                        <a href="{{ path('prospects_migration',{'id': prospect.id})}}"data-bs-toggle="tooltip" title="migrer en client"><button type="button" class="btn btn-success">Oui</button></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <a href="{{ path('prospects_edit', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="modifier"><button type="button" class="btn"><i class="fas fa-user-edit"></i></button></a>
                                         {{ include('prospects/_delete_form.html.twig') }}
                                         </div>

@@ -2,21 +2,25 @@
 
 namespace App\Controller;
 
+use App\Repository\ConventionsRepository;
 use App\Repository\DevisRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\FormationsRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GestionController extends AbstractController
 {
     #[Route('/gestion', name: 'gestion')]
 
      // TODO ajouter le repository devis et récupérer les données 
-    public function index(DevisRepository $devisRepository): Response
+    public function index(DevisRepository $devisRepository, FormationsRepository $formationsRepository): Response
     {
+        $formations= $formationsRepository->findAll();
         return $this->render('gestion/index.html.twig', [
             'controller_name' => 'GestionController',
-            'devis'=>$devisRepository->findAll()
+            'devis'=>$devisRepository->findAll(),
+            'formations'=>$formations,
         ]);
     }
      // TODO ajouter le repository facture et récupérer les données 
@@ -29,14 +33,15 @@ class GestionController extends AbstractController
             'controller_name' => 'GestionController',
         ]);
     }
-    // TODO ajouter le repository convention et récupérer les données 
+
     /**
     * @Route("gestion/convention/", name="gestion_convention")
     */
-    public function convention():Response
+    public function convention(ConventionsRepository $conventionsRepository):Response
     {
         return $this->render('gestion/convention.html.twig', [
             'controller_name' => 'GestionController',
+            'conventions'=>$conventionsRepository->findAll(),
         ]);
     }
     // TODO ajouter le repository reglement et récupérer les données 

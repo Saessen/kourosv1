@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Prospects;
+use App\Entity\Entreprise;
 use App\Form\ProspectsEntrepriseType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,7 +30,7 @@ class ProspectsType extends AbstractType
             ->add('commentaire')
             ->remove('role', ChoiceType::class, ['placeholder'=>'prospect ou client', 'choices'=>
             ['Prospect'=>0, 'Client'=>1]])
-            // ->add('Entreprise', ProspectsEntrepriseType::class)
+            ->add('Entreprise', ProspectsEntrepriseType::class)
         ;
     }
 

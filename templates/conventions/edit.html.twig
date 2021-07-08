@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la convention{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-1">
+            <li class="breadcrumb-item"><a href="{{ path('gestion')}}">Gestion</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('conventions_index')}}">Liste complète</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modifications</li>
+        </ol>
+</nav>
+    <h1>Modifier la convention de l'entreprise {{convention.prospect.entreprise}}</h1>
+
+    {{ include('conventions/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('conventions_index') }}">Retour</a>
+
+    {{ include('conventions/_delete_form.html.twig') }}
+{% endblock %}

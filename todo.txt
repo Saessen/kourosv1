@@ -2,9 +2,7 @@ Voir chemin img pour todolist
 ///////////////////////////////////////////////////////
 PROBLEME AFFICHAGE:
     index formateur => afficher les formations
-    DASHBOARD nbr devis en fction du statut
-    DEVIS 
-    index: je n'arrive pas a afficher les formations
+
 ///////////////////////////////////////////////////////
 FORMULAIRE PROSPECT:
     ajouter formulaire entreprise
@@ -14,6 +12,5 @@ FORMULAIRE PROSPECT:
 MODIFIER LES ICONES EDIT SHOW SUR LES TEMPLATES CLIENTS/FORMATIONS/FORMATEURS/ENTREPRISE: choisir les icones pleines (les plus fines sont en formules payantes)
 
 /////////////////////////////////////
-devis
-repository: search fctionne pas 
-
+Calcul dans le devis repository
+Voir pour ajouter montant TTC dans devis créer un calcul qui se reporte automatiquement dans le formulaire

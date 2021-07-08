@@ -34,7 +34,7 @@ class DevisRepository extends ServiceEntityRepository
         for($i=0; $i<count($t); $i++){
             if($i==0){
                 $query->where(' d.client LIKE :mots' )
-                ->orWhere('p.clint.entreprise LIKE :mots')
+                ->orWhere('p.entreprise LIKE :mots')
                 ->setParameter('mots', '%'.$t[$i].'%');
             }
         }

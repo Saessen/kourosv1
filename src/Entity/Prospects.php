@@ -65,7 +65,7 @@ class Prospects
     private $site;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="prospects")
+     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="prospects", cascade={"persist"})
      */
     private $entreprise;
 
@@ -84,9 +84,15 @@ class Prospects
      */
     private $devis;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Conventions::class, mappedBy="prospect")
+     */
+    private $conventions;
+
     public function __construct()
     {
         $this->devis = new ArrayCollection();
+        $this->conventions = new ArrayCollection();
     }
 
 
@@ -268,6 +274,36 @@ class Prospects
             // set the owning side to null (unless already changed)
             if ($devi->getClient() === $this) {
                 $devi->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conventions[]
+     */
+    public function getConventions(): Collection
+    {
+        return $this->conventions;
+    }
+
+    public function addConvention(Conventions $convention): self
+    {
+        if (!$this->conventions->contains($convention)) {
+            $this->conventions[] = $convention;
+            $convention->setProspect($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConvention(Conventions $convention): self
+    {
+        if ($this->conventions->removeElement($convention)) {
+            // set the owning side to null (unless already changed)
+            if ($convention->getProspect() === $this) {
+                $convention->setProspect(null);
             }
         }
 

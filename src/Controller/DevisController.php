@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\SearchWordType;
+use App\Form\DevisStatutType;
 
 #[Route('/devis')]
 class DevisController extends AbstractController
@@ -19,22 +20,54 @@ class DevisController extends AbstractController
     #[Route('/', name: 'devis_index', methods: ['GET', 'POST'])]
     public function index(DevisRepository $devisRepository, Request $request, FormationsRepository $formationsRepository): Response
     {   
+        $devis = $devisRepository->findAll();
+        // recherche 
         $formations= $formationsRepository->findAll();
-       // recherche 
-       $devis = $devisRepository->findAll();
-       $form= $this->createForm(SearchWordType::class);
-       $search = $form->handleRequest($request);
-       if($form->isSubmitted() && $form->isValid()){
-           $devis= $devisRepository->search(
-           $search->get('mots')->getData(),
-           );
-       }
-       return $this->render('devis/index.html.twig', [
-           'devis' => $devis,
-           'form'=> $form->createView(),
-           'formations'=>$formations,
-       ]);
-   }
+        $form= $this->createForm(SearchWordType::class);
+    //    $formStatut =$this->createForm(DevisStatutType::class);
+        $search = $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $devis= $devisRepository->search(
+            $search->get('mots')->getData(),
+            );
+        }
+       // calcul
+    // $prix = 0;
+    // for($i=0; $i<count($devis); $i++){
+    //     foreach ($devis->getFormations()as $formations)
+    //     {
+    //         $prix = ($formations->getPrixJour() * $devis->getNbrParticipants()) + $devis->getFraisAnnexes();
+    //     }
+    // }
+    //    $calcul= $devisRepository->find($id);
+    //    $prix = 0;
+    //   foreach($calcul->getFormations()as $formations=>$prixJour){
+    //       $prix = ($formations->getPrixJour() * $calcul->getNbrParticipants()) + $calcul->getFraisAnnexes();
+    //   }
+    //    $devis=[];
+    //    $prix = 0;
+    //    foreach($devis->getFormation()as $formations){
+    //        $prix = $formations->getPrixJour() * $devis->getNbrParticipants();
+    //    }
+    //    foreach ($formations as $devis->getFormations()=>$prixJour){
+    //        $prix= ($formations->getPrixJour()* $devis->getNbrParticipants())+ $devis->getFraisAnnexes();
+    //    }
+    //    foreach ($devis as $devi)
+    //    {
+    //      print_r($devi);
+    //         foreach ($devi as $prix){
+    //             $prix= (($devi->getFormations("prixJour") * $devi->getNbrParticipants())+ $devi->getFraisAnnexes());
+    //             dd($prix);
+    //         }
+    // }
+        return $this->render('devis/index.html.twig', [
+            'devis' => $devis,
+            'form'=> $form->createView(),
+            // 'formStatut'=>$formStatut,
+            'formations'=>$formations,
+            // 'prix'=>$prix,
+        ]);
+    }
 
     #[Route('/new', name: 'devis_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
@@ -58,10 +91,16 @@ class DevisController extends AbstractController
     }
 
     #[Route('/{id}', name: 'devis_show', methods: ['GET'])]
-    public function show(Devis $devi): Response
+    public function show(Devis $devi, DevisRepository $devisRepository, $id): Response
     {
+        $devis= $devisRepository->find($id);
+        $prix = 0;
+       foreach($devis->getFormations()as $formations){
+           $prix = ($formations->getPrixJour() * $devis->getNbrParticipants()) + $devis->getFraisAnnexes();
+       }
         return $this->render('devis/show.html.twig', [
             'devi' => $devi,
+            'prix' => $prix,
         ]);
     }
 
@@ -69,6 +108,25 @@ class DevisController extends AbstractController
     public function edit(Request $request, Devis $devi): Response
     {
         $form = $this->createForm(DevisType::class, $devi);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('devis_index');
+        }
+
+        return $this->render('devis/edit.html.twig', [
+            'devi' => $devi,
+            'form' => $form->createView(),
+        ]);
+    }
+   
+
+    #[Route('/{id}/statutEdit', name: 'devis_statutEdit', methods: ['GET', 'POST'])]
+    public function statutEdit(Request $request, Devis $devi): Response
+    {
+        $form = $this->createForm(DevisSatutType::class, $devi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
