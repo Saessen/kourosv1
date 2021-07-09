@@ -54,10 +54,19 @@ class Formations
      */
     private $devis;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Prix::class, mappedBy="prixJourFormation")
+     */
+    private $prixes;
+
+
+
     public function __construct()
     {
         $this->formateurs = new ArrayCollection();
         $this->devis = new ArrayCollection();
+        $this->prixes = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -181,4 +190,33 @@ class Formations
 
         return $this;
     }
+
+    /**
+     * @return Collection|Prix[]
+     */
+    public function getPrixes(): Collection
+    {
+        return $this->prixes;
+    }
+
+    public function addPrix(Prix $prix): self
+    {
+        if (!$this->prixes->contains($prix)) {
+            $this->prixes[] = $prix;
+            $prix->addPrixJourFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrix(Prix $prix): self
+    {
+        if ($this->prixes->removeElement($prix)) {
+            $prix->removePrixJourFormation($this);
+        }
+
+        return $this;
+    }
+
+
 }

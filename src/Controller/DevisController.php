@@ -21,16 +21,25 @@ class DevisController extends AbstractController
     public function index(DevisRepository $devisRepository, Request $request, FormationsRepository $formationsRepository): Response
     {   
         $devis = $devisRepository->findAll();
-        // recherche 
         $formations= $formationsRepository->findAll();
         $form= $this->createForm(SearchWordType::class);
-    //    $formStatut =$this->createForm(DevisStatutType::class);
+        $formStatut =$this->createForm(DevisStatutType::class);
         $search = $form->handleRequest($request);
+     
         if($form->isSubmitted() && $form->isValid()){
             $devis= $devisRepository->search(
             $search->get('mots')->getData(),
             );
         }
+
+        $formStatut->handleRequest($request);
+
+        if ($formStatut->isSubmitted() && $formStatut->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('devis_index');
+        }
+    
        // calcul
     // $prix = 0;
     // for($i=0; $i<count($devis); $i++){
@@ -63,7 +72,7 @@ class DevisController extends AbstractController
         return $this->render('devis/index.html.twig', [
             'devis' => $devis,
             'form'=> $form->createView(),
-            // 'formStatut'=>$formStatut,
+            'formStatut'=>$formStatut->createView(),
             'formations'=>$formations,
             // 'prix'=>$prix,
         ]);
@@ -104,23 +113,23 @@ class DevisController extends AbstractController
         ]);
     }
 // ANCHOR
-    /**
-     * @Route("/devis/editStatut/{id}", name="edit_statut")
-     */
-    public function inscriptionEvent($id, DevisRepository $devisRepository)
-    {
-        $devis = $devisRepository->find($id);
-        $statut = $devisRepository->findBy(['statut'=> '0']);
-        // $devis = $this->getdevis();
-        $devis->setStatut($devis);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($statut);
-        $em->flush();
-        //
-        return $this->redirectToRoute('devis_index');
+    // /**
+    //  * @Route("/devis/editStatut/{id}", name="edit_statut")
+    //  */
+    // public function inscriptionEvent($id, DevisRepository $devisRepository)
+    // {
+    //     $devis = $devisRepository->find($id);
+    //     $statut = $devisRepository->findBy(['statut'=> '0']);
+    //     // $devis = $this->getdevis();
+    //     $devis->setStatut($devis);
+    //     $em = $this->getDoctrine()->getManager();
+    //     $em->persist($statut);
+    //     $em->flush();
+    //     //
+    //     return $this->redirectToRoute('devis_index');
         
         
-    }
+    // }
 
     #[Route('/{id}/edit', name: 'devis_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Devis $devi): Response

@@ -89,9 +89,15 @@ class Devis
      */
     private $conventions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Prix::class, mappedBy="nbrParticipants")
+     */
+    private $prixes;
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
+        $this->prixes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -298,4 +304,32 @@ class Devis
 
         return $this;
     }
+
+    /**
+     * @return Collection|Prix[]
+     */
+    public function getPrixes(): Collection
+    {
+        return $this->prixes;
+    }
+
+    public function addPrix(Prix $prix): self
+    {
+        if (!$this->prixes->contains($prix)) {
+            $this->prixes[] = $prix;
+            $prix->addNbrParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrix(Prix $prix): self
+    {
+        if ($this->prixes->removeElement($prix)) {
+            $prix->removeNbrParticipant($this);
+        }
+
+        return $this;
+    }
+
 }

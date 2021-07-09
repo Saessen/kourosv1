@@ -3,9 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Conventions;
+use App\Entity\Participants;
+use App\Form\ParticipantsType;
 use Symfony\Component\Form\AbstractType;
+use App\Form\ConventionsParticipantsType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ConventionsType extends AbstractType
 {
@@ -13,11 +17,11 @@ class ConventionsType extends AbstractType
     {
         $builder
             ->add('lieuFormation')
-            ->add('nomParticipants')
-            ->add('prenomParticipants')
             ->add('prospect')
             ->add('devis')
             ->add('commentaire')
+            // ANCHOR
+            // ->add('participants', ConventionsParticipantsType::class)
         ;
     }
 

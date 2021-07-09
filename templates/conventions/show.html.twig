@@ -3,6 +3,14 @@
 {% block title %}Conventions{% endblock %}
 
 {% block body %}
+<nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-1">
+            <li class="breadcrumb-item"><a href="{{ path('gestion')}}">Gestion</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('conventions_index')}}">Liste complète</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Détail convention</li>
+        </ol>
+</nav>
+
     <h1>Conventions</h1>
 
     <table class="table">
@@ -15,20 +23,12 @@
                 <th>LieuFormation</th>
                 <td>{{ convention.lieuFormation }}</td>
             </tr>
-            <tr>
-                <th>NomParticipants</th>
-                <td>{{ convention.nomParticipants }}</td>
-            </tr>
-            <tr>
-                <th>PrenomParticipants</th>
-                <td>{{ convention.prenomParticipants }}</td>
-            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('conventions_index') }}">back to list</a>
+    <a href="{{ path('conventions_index') }}">Retour</a>
 
-    <a href="{{ path('conventions_edit', {'id': convention.id}) }}">edit</a>
+    <a href="{{ path('conventions_edit', {'id': convention.id}) }}">Modifier</a>
 
     {{ include('conventions/_delete_form.html.twig') }}
 {% endblock %}

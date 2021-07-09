@@ -31,16 +31,6 @@ class Conventions
     private $lieuFormation;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $nomParticipants;
-
-    /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $prenomParticipants;
-
-    /**
      * @ORM\OneToOne(targetEntity=Devis::class, inversedBy="conventions", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -86,30 +76,6 @@ class Conventions
     public function setLieuFormation(?string $lieuFormation): self
     {
         $this->lieuFormation = $lieuFormation;
-
-        return $this;
-    }
-
-    public function getNomParticipants(): ?string
-    {
-        return $this->nomParticipants;
-    }
-
-    public function setNomParticipants(string $nomParticipants): self
-    {
-        $this->nomParticipants = $nomParticipants;
-
-        return $this;
-    }
-
-    public function getPrenomParticipants(): ?string
-    {
-        return $this->prenomParticipants;
-    }
-
-    public function setPrenomParticipants(?string $prenomParticipants): self
-    {
-        $this->prenomParticipants = $prenomParticipants;
 
         return $this;
     }

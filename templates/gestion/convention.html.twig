@@ -43,7 +43,7 @@
                             {# <th scope="col">Statut</th> #}
                             {# <th scope="col">Durée</th> #}
                             <th scope="col">Lieu de formation</th>
-                            <th scope="col">Participants</th>
+                            {# <th scope="col">Participants</th> #}
                             <th scope="col">Commentaire</th>
                             <th scope="col">Voir</th> 
                             </tr>
@@ -64,7 +64,7 @@
                                 {#ANCHOR <td>{{ convention.devis.formations.niveau }}</td> #}
                                 <td>AFFICHER PRIX</td>
                                 <td>{{ convention.lieuFormation }}</td>
-                                <td>{{ convention.nomParticipants }}</td>
+                                {# <td>{{ convention.nomParticipants }}</td> #}
                                 <td>{{ convention.commentaire }}</td>
                                 <td>
                                     <a href="{{ path('conventions_show', {'id': convention.id}) }}">show</a>

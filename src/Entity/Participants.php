@@ -34,7 +34,7 @@ class Participants
     private $entreprise;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Conventions::class, inversedBy="participants")
+     * @ORM\ManyToOne(targetEntity=Conventions::class, inversedBy="participants", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $conventions;

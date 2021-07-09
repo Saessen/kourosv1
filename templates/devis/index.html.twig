@@ -89,7 +89,7 @@
                             <span class="badge bg-danger text-dark">Rejeté</span>
                         {% endif %}
                         {# DROPDOWN BOOTSTRAP #}
-                        <div class="dropdown">
+                        {# <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Modifier le statut
                             </button>
@@ -98,7 +98,7 @@
                                 <li><a class="dropdown-item" href="#"><span class="badge bg-success text-dark">Accepté</span></a></li>
                                 <li><a class="dropdown-item" href="#"><span class="badge bg-danger text-dark">Rejeté</span></a></li>
                             </ul>
-                            </div>
+                            </div> #}
                         <!-- Button trigger modal -->
                                         <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"data-bs-toggle="tooltip" title="modifier le statut">
                                         test
@@ -115,9 +115,8 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         test
-                                                        {# {{formStatut}} #}
+                                                    {# ANCHOR #}
                                                         {# {{ form(formStatut) }} #}
-                                                        {# {{ include('form/DevisStatutType.php', {'button_label': 'Update'}) }} #}
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
