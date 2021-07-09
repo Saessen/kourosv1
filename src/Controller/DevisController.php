@@ -95,13 +95,31 @@ class DevisController extends AbstractController
     {
         $devis= $devisRepository->find($id);
         $prix = 0;
-       foreach($devis->getFormations()as $formations){
+        foreach($devis->getFormations()as $formations){
            $prix = ($formations->getPrixJour() * $devis->getNbrParticipants()) + $devis->getFraisAnnexes();
-       }
+        }
         return $this->render('devis/show.html.twig', [
             'devi' => $devi,
             'prix' => $prix,
         ]);
+    }
+// ANCHOR
+    /**
+     * @Route("/devis/editStatut/{id}", name="edit_statut")
+     */
+    public function inscriptionEvent($id, DevisRepository $devisRepository)
+    {
+        $devis = $devisRepository->find($id);
+        $statut = $devisRepository->findBy(['statut'=> '0']);
+        // $devis = $this->getdevis();
+        $devis->setStatut($devis);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($statut);
+        $em->flush();
+        //
+        return $this->redirectToRoute('devis_index');
+        
+        
     }
 
     #[Route('/{id}/edit', name: 'devis_edit', methods: ['GET', 'POST'])]
@@ -123,23 +141,23 @@ class DevisController extends AbstractController
     }
    
 
-    #[Route('/{id}/statutEdit', name: 'devis_statutEdit', methods: ['GET', 'POST'])]
-    public function statutEdit(Request $request, Devis $devi): Response
-    {
-        $form = $this->createForm(DevisSatutType::class, $devi);
-        $form->handleRequest($request);
+    // #[Route('/{id}/statutEdit', name: 'devis_statutEdit', methods: ['GET', 'POST'])]
+    // public function statutEdit(Request $request, Devis $devi): Response
+    // {
+    //     $form = $this->createForm(DevisSatutType::class, $devi);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('devis_index');
-        }
+    //         return $this->redirectToRoute('devis_index');
+    //     }
 
-        return $this->render('devis/edit.html.twig', [
-            'devi' => $devi,
-            'form' => $form->createView(),
-        ]);
-    }
+    //     return $this->render('devis/edit.html.twig', [
+    //         'devi' => $devi,
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
     #[Route('/{id}', name: 'devis_delete', methods: ['POST'])]
     public function delete(Request $request, Devis $devi): Response

@@ -84,6 +84,11 @@ class Entreprise
      */
     private $prospects;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Participants::class, mappedBy="entreprise")
+     */
+    private $participants;
+
     
 
     public function __construct()
@@ -91,6 +96,7 @@ class Entreprise
         $this->prospects = new ArrayCollection();
         $this->clients = new ArrayCollection();
         $this->clientsActivite = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -273,6 +279,36 @@ class Entreprise
     }
     public function __toString(){
         return $this->denominationSociale;
+    }
+
+    /**
+     * @return Collection|Participants[]
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(Participants $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+            $participant->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participants $participant): self
+    {
+        if ($this->participants->removeElement($participant)) {
+            // set the owning side to null (unless already changed)
+            if ($participant->getEntreprise() === $this) {
+                $participant->setEntreprise(null);
+            }
+        }
+
+        return $this;
     }
 
   
