@@ -132,7 +132,7 @@
 
                     {# fin test #}
                     <a href="{{ path('prospects_edit', {'id': prospect.id}) }}"data-bs-toggle="tooltip" title="modifier"><button type="button" class="btn"><i class="fas fa-user-edit"></i></button></a>
-                    <a href="#"data-bs-toggle="tooltip" title="créer le devis"><button type="button" class="btn"><i class="fas fa-edit"></i></button></a>
+                    <a href="{{ path('devis_new_prospect',{'id': prospect.id}) }}"data-bs-toggle="tooltip" title="créer le devis"><button type="button" class="btn"><i class="fas fa-edit"></i></button></a>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"data-bs-toggle="tooltip" title="migrer en client">
                     <i class="fas fa-user-plus"></i>

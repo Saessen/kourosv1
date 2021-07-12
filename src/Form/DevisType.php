@@ -25,6 +25,7 @@ class DevisType extends AbstractType
             ->add('fraisAnnexes')
             ->add('formations')
             ->add('client')
+            ->add('nomContact')
             ->add('opco')
             ->add('statut', ChoiceType::class, ['choices'=> ['En cours'=>0, 'Accepté'=>1, 'Rejeté'=>2]])
         ;

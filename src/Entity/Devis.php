@@ -94,10 +94,16 @@ class Devis
      */
     private $prixes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Prospects::class, inversedBy="devisNom")
+     */
+    private $nomContact;
+
     public function __construct()
     {
         $this->formations = new ArrayCollection();
         $this->prixes = new ArrayCollection();
+        $this->nomContact = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -331,5 +337,34 @@ class Devis
 
         return $this;
     }
+
+    /**
+     * @return Collection|Prospects[]
+     */
+    public function getNomContact(): Collection
+    {
+        return $this->nomContact;
+    }
+    public function setNomContact (Prospects $nomContact): self
+    {
+        $this->nomContact = $nomContact;
+
+        return $this;
+    }
+    // public function addNomContact(Prospects $nomContact): self
+    // {
+    //     if (!$this->nomContact->contains($nomContact)) {
+    //         $this->nomContact[] = $nomContact;
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeNomContact(Prospects $nomContact): self
+    // {
+    //     $this->nomContact->removeElement($nomContact);
+
+    //     return $this;
+    // }
 
 }

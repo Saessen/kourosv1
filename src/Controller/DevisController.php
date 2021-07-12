@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Devis;
+use App\Entity\Prospects;
 use App\Form\DevisType;
 use App\Repository\DevisRepository;
 use App\Repository\FormationsRepository;
@@ -83,6 +84,32 @@ class DevisController extends AbstractController
     public function new(Request $request): Response
     {
         $devi = new Devis();
+        $form = $this->createForm(DevisType::class, $devi);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($devi);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('devis_index');
+        }
+
+        return $this->render('devis/new.html.twig', [
+            'devi' => $devi,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    // ANCHOR
+    #[Route('/new/{id}/prospect', name: 'devis_new_prospect', methods: ['GET', 'POST'])]
+    public function newProspect(Request $request, ProspectsRepository $prospectsRepository, $id): Response
+    {   
+        $prospects = $prospectsRepository->find($id);
+        // dd($prospects);
+        $devi = new Devis();
+        // $devi->setNomContact($prospects->getNom());
+        $devi->setClient(($prospects));
         $form = $this->createForm(DevisType::class, $devi);
         $form->handleRequest($request);
 

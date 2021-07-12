@@ -89,10 +89,16 @@ class Prospects
      */
     private $conventions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Devis::class, mappedBy="nomContact")
+     */
+    private $devisNom;
+
     public function __construct()
     {
         $this->devis = new ArrayCollection();
         $this->conventions = new ArrayCollection();
+        $this->devisNom = new ArrayCollection();
     }
 
 
@@ -309,4 +315,31 @@ class Prospects
 
         return $this;
     }
+
+    /**
+     * @return Collection|Devis[]
+     */
+    public function getDevisNom(): Collection
+    {
+        return $this->devisNom;
+    }
+
+    public function addDevisNom(Devis $devisNom): self
+    {
+        if (!$this->devisNom->contains($devisNom)) {
+            $this->devisNom[] = $devisNom;
+            $devisNom->setNomContact($this);
+        }
+
+        return $this;
+    }
+
+    // public function removeDevisNom(Devis $devisNom): self
+    // {
+    //     if ($this->devisNom->removeElement($devisNom)) {
+    //         $devisNom->removeNomContact($this);
+    //     }
+
+    //     return $this;
+    // }
 }

@@ -14,3 +14,6 @@ MODIFIER LES ICONES EDIT SHOW SUR LES TEMPLATES CLIENTS/FORMATIONS/FORMATEURS/EN
 /////////////////////////////////////
 Calcul dans le devis repository
 Voir pour ajouter montant TTC dans devis créer un calcul qui se reporte automatiquement dans le formulaire
+
+//////////////////////////////////////
+route nouveau devis a partir de l' id du prospect
