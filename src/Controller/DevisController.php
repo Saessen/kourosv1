@@ -22,6 +22,7 @@ class DevisController extends AbstractController
     {   
         $devis = $devisRepository->findAll();
         $formations= $formationsRepository->findAll();
+
         $form= $this->createForm(SearchWordType::class);
         $formStatut =$this->createForm(DevisStatutType::class);
         $search = $form->handleRequest($request);
@@ -148,7 +149,24 @@ class DevisController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-   
+   // ANCHOR
+   #[Route('/{id}/edit/statut', name: 'edit_statut', methods: ['GET', 'POST'])]
+   public function editStatut(Request $request, Devis $devi): Response
+   {
+       $form = $this->createForm(DevisStatutType::class, $devi);
+       $form->handleRequest($request);
+
+       if ($form->isSubmitted() && $form->isValid()) {
+           $this->getDoctrine()->getManager()->flush();
+
+           return $this->redirectToRoute('devis_index');
+       }
+
+       return $this->render('devis/edit.html.twig', [
+           'devi' => $devi,
+           'form' => $form->createView(),
+       ]);
+   }
 
     // #[Route('/{id}/statutEdit', name: 'devis_statutEdit', methods: ['GET', 'POST'])]
     // public function statutEdit(Request $request, Devis $devi): Response

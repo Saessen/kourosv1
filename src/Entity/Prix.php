@@ -39,6 +39,8 @@ class Prix
      */
     private $prixTTC;
 
+    private $calculate;
+
     public function __construct()
     {
         $this->prixJourFormation = new ArrayCollection();
@@ -120,5 +122,32 @@ class Prix
         $this->prixTTC = $prixTTC;
 
         return $this;
+    }
+    // public function calculate(int $prixJourFormation, int $nbrParticipant)
+    // {
+    //     return $prixJourFormation * $nbrParticipant;
+    // }
+
+    /**
+     * Get the value of calculate
+     */ 
+    public function getCalculate()
+    {
+        return $this->calculate;
+    }
+
+    /**
+     * Set the value of calculate
+     *
+     * @return  self
+     */ 
+    public function setCalculate($calculate)
+    {
+        $this->calculate = $calculate;
+
+        return $this;
+    }
+    public function __toString(){
+        return $this->id;
     }
 }
