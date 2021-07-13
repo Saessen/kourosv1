@@ -1,13 +1,5 @@
 Voir chemin img pour todolist
-///////////////////////////////////////////////////////
-PROBLEME AFFICHAGE:
-    index formateur => afficher les formations
-
-///////////////////////////////////////////////////////
-FORMULAIRE PROSPECT:
-    ajouter formulaire entreprise
-    Recherche prospect: ne fonctionne pas sur tous 
-
+Formulaire conventionParticipant: pas d'enregistrement en bdd
 //////////////////////////////////////////////
 MODIFIER LES ICONES EDIT SHOW SUR LES TEMPLATES CLIENTS/FORMATIONS/FORMATEURS/ENTREPRISE: choisir les icones pleines (les plus fines sont en formules payantes)
 
@@ -16,4 +8,6 @@ Calcul dans le devis repository
 Voir pour ajouter montant TTC dans devis créer un calcul qui se reporte automatiquement dans le formulaire
 
 //////////////////////////////////////
-route nouveau devis a partir de l' id du prospect
+récupérer les infos du prospects en intégralité dans la création du devis.
+/////////////////////////////////////
+récupérer l'intégralité des infos du devis dans la création de la nouvelle conventions

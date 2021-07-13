@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,7 +39,7 @@ class Participants
      * @ORM\JoinColumn(nullable=false)
      */
     private $conventions;
-
+    
     public function getId(): ?int
     {
         return $this->id;

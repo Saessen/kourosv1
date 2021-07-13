@@ -54,8 +54,24 @@
                 <td>{{ formateur.tva }}</td>
             </tr>
             <tr>
+                <th>Formations</th>
+                <td>
+                {% for formations in formateur.formations %}
+                {{ formations.titre }}
+                {% endfor %}
+                </td>
+            </tr>
+            <tr>
                 <th>Methode</th>
-                <td>{{ formateur.methode }}</td>
+                  <td>
+                        {% if formateur.methode == 1 %}
+                        Distanciel
+                        {% elseif formateur.methode == 2 %}
+                        Présenciel
+                        {% else %}
+                        Distanciel & Présenciel
+                        {% endif %}
+                        </td>
             </tr>
         </tbody>
     </table>

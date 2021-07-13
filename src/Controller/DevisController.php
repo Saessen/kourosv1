@@ -108,6 +108,8 @@ class DevisController extends AbstractController
         $prospects = $prospectsRepository->find($id);
         // dd($prospects);
         $devi = new Devis();
+        
+        // $devi->setNomContact($prospects->getNom());
         // $devi->setNomContact($prospects->getNom());
         $devi->setClient(($prospects));
         $form = $this->createForm(DevisType::class, $devi);

@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Participants;
 use App\Entity\Conventions;
+use App\Repository\ParticipantsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,7 +26,7 @@ class ConventionsParticipantsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Participants::class,
+            'data_class' => null,
         ]);
     }
 }

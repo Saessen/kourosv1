@@ -46,6 +46,11 @@ class Conventions
      */
     private $participants;
 
+    //     /**
+    //  * @ORM\Column(type="string", length=255, nullable="true")
+    //  */
+    // private $entrepriseName;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -133,4 +138,16 @@ class Conventions
 
         return $this;
     }
+
+    // public function getEntrepriseName(): ?string
+    // {
+    //     return $this->entrepriseName;
+    // }
+
+    // public function setEntrepriseName(string $entrepriseName): self
+    // {
+    //     $this->entrepriseName = $entrepriseName;
+
+    //     return $this;
+    // }
 }

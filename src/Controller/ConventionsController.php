@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Conventions;
 use App\Form\SearchWordType;
 use App\Form\ConventionsType;
+use App\Form\ConventionsParticipantsType;
+use App\Repository\DevisRepository;
 use App\Repository\ConventionsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +41,32 @@ class ConventionsController extends AbstractController
     public function new(Request $request): Response
     {
         $convention = new Conventions();
+        $form = $this->createForm(ConventionsType::class, $convention);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($convention);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('conventions_index');
+        }
+
+        return $this->render('conventions/new.html.twig', [
+            'convention' => $convention,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    // ANCHOR
+    #[Route('/new/{id}/devis', name: 'convention_new_devis', methods: ['GET', 'POST'])]
+    public function newDevis(Request $request, DevisRepository $devisRepository, $id): Response
+    {   
+        $devis = $devisRepository->find($id);
+        
+        $convention = new Conventions();
+        // $convention->setEntrepriseName($devis->getClient());
+        $convention->setDevis($devis);
         $form = $this->createForm(ConventionsType::class, $convention);
         $form->handleRequest($request);
 

@@ -21,7 +21,7 @@ class ConventionsType extends AbstractType
             ->add('devis')
             ->add('commentaire')
             // ANCHOR
-            // ->add('participants', ConventionsParticipantsType::class)
+            ->add('participants', ConventionsParticipantsType::class)
         ;
     }
 

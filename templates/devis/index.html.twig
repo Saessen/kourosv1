@@ -136,7 +136,7 @@
                             <a href="{{ path('devis_show', {'id': devi.id}) }}"data-bs-toggle="tooltip" title="voir"><i class="far fa-eye"></i></a>
                             <a href="{{ path('devis_edit', {'id': devi.id}) }}"data-bs-toggle="tooltip" title="modifier"><i class="far fa-edit"></i></a>
                             <a href="#"data-bs-toggle="tooltip" title="générer PDF"><i class="far fa-file-pdf"></i></a>
-                            <a href="#"data-bs-toggle="tooltip" title="éditer convention"><i class="fas fa-file-invoice"></i></a>
+                            <a href="{{ path('convention_new_devis',{'id': devi.id})}}"data-bs-toggle="tooltip" title="éditer convention"><i class="fas fa-file-invoice"></i></a>
                             
                         </td>
                     </tr>
