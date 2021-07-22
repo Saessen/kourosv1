@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ParticipantsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,10 +36,20 @@ class Participants
     private $entreprise;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Conventions::class, inversedBy="participants", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Conventions::class, inversedBy="participants", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $conventions;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Devis::class, mappedBy="participants")
+     */
+    private $devis;
+
+    public function __construct()
+    {
+        $this->devis = new ArrayCollection();
+    }
     
     public function getId(): ?int
     {
@@ -92,4 +103,31 @@ class Participants
 
         return $this;
     }
+
+    /**
+     * @return Collection|Devis[]
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    // public function addDevi(Devis $devi): self
+    // {
+    //     if (!$this->devis->contains($devi)) {
+    //         $this->devis[] = $devi;
+    //         $devi->addParticipant($this);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeDevi(Devis $devi): self
+    // {
+    //     if ($this->devis->removeElement($devi)) {
+    //         $devi->removeParticipant($this);
+    //     }
+
+    //     return $this;
+    // }
 }

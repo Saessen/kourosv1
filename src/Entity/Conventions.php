@@ -42,7 +42,7 @@ class Conventions
     private $commentaire;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participants::class, mappedBy="conventions")
+     * @ORM\ManyToMany(targetEntity=Participants::class, mappedBy="conventions")
      */
     private $participants;
 

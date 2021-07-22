@@ -1,0 +1,17 @@
+Graphique:
+            Utilisation ChartJs lien doc: https://www.chartjs.org/docs/latest/charts/bubble.html
+
+PDF:
+            Utilisation TCPDF lien doc: https://tcpdf.org/
+
+Claendrier: 
+            Utilisation Fullcalendar lien doc: https://fullcalendar.io/docs
+
+Search: 
+        Création d'un formulaire pour la recherche + création de la fonction dans le repository et appel de celle-ci dans le controleur 
+
+Ckeditor:
+        https://github.com/FriendsOfSymfony/FOSCKEditorBundle
+
+
+

@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+// Formulaire de recherche sur toute les entités
+
 class SearchWordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

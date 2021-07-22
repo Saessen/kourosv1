@@ -1,13 +1,41 @@
-Voir chemin img pour todolist
+
 Formulaire conventionParticipant: pas d'enregistrement en bdd
 //////////////////////////////////////////////
-MODIFIER LES ICONES EDIT SHOW SUR LES TEMPLATES CLIENTS/FORMATIONS/FORMATEURS/ENTREPRISE: choisir les icones pleines (les plus fines sont en formules payantes)
 
-/////////////////////////////////////
 Calcul dans le devis repository
 Voir pour ajouter montant TTC dans devis créer un calcul qui se reporte automatiquement dans le formulaire
 
 //////////////////////////////////////
 récupérer les infos du prospects en intégralité dans la création du devis.
+
 /////////////////////////////////////
 récupérer l'intégralité des infos du devis dans la création de la nouvelle conventions
+
+////////////////////////////////////
+Modifier numéro de devis : utiliser l'id et le récupérer sur la convention pour que celle ci ai le même numéro 
+
+////////////////////////////////////
+Faire authentification
+
+
+
+
+
+
+
+
+
+
+
+
+Si c'est uniquement pour stocker des fichers PDF dans une table, tu as juste à créer ta base de donnée, une table que tu appels "fichier" par exemple. Dans cette table tu peux ensuite mettre les champs que tu veux suivant tes besoins, comme :
+[list]
+[*] Id, type -> int(11), auto_increment
+[*] Nom_du_fichier, type -> varchar(50)
+[*] Chemin_du_fichier, type -> varchar(128)
+[*] Taille_du_fichier, type -> int(11)
+[*] etc...
+/list
+
+Et pour récupérer ton fichier sur un site web tu fais ta requête SQL puis par exemple :
+[<?php echo $donnees['Chemin_du_fichier'];?> Voir le pdf]

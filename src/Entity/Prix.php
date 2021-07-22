@@ -123,10 +123,10 @@ class Prix
 
         return $this;
     }
-    // public function calculate(int $prixJourFormation, int $nbrParticipant)
-    // {
-    //     return $prixJourFormation * $nbrParticipant;
-    // }
+    public function calculate(int $prixJourFormation, int $nbrParticipant)
+    {
+        return $prixJourFormation * $nbrParticipant;
+    }
 
     /**
      * Get the value of calculate
@@ -151,3 +151,4 @@ class Prix
         return $this->id;
     }
 }
+// Objectif enregistrer le prix du devis en BDD 
