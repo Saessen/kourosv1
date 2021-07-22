@@ -59,6 +59,11 @@ class Formations
      */
     private $prixes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Template::class, mappedBy="formation")
+     */
+    private $templates;
+
 
 
     public function __construct()
@@ -66,6 +71,7 @@ class Formations
         $this->formateurs = new ArrayCollection();
         $this->devis = new ArrayCollection();
         $this->prixes = new ArrayCollection();
+        $this->templates = new ArrayCollection();
 
     }
 
@@ -213,6 +219,33 @@ class Formations
     {
         if ($this->prixes->removeElement($prix)) {
             $prix->removePrixJourFormation($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Template[]
+     */
+    public function getTemplates(): Collection
+    {
+        return $this->templates;
+    }
+
+    public function addTemplate(Template $template): self
+    {
+        if (!$this->templates->contains($template)) {
+            $this->templates[] = $template;
+            $template->addFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTemplate(Template $template): self
+    {
+        if ($this->templates->removeElement($template)) {
+            $template->removeFormation($this);
         }
 
         return $this;
