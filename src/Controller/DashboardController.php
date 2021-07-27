@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
-    #[Route('/', name: 'dashboard')]
+    #[Route('/dashboard', name: 'dashboard')]
     // TODO ajout des données des entités: Devis + Factures + Sessions 
     public function index(DevisRepository $devisRepository): Response
     {
