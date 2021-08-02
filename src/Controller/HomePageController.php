@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomePageController extends AbstractController
 {
-    #[Route('/', name: 'home_page')]
+    // #[Route('/', name: 'home_page')]
     public function index(): Response
     {   if($this->getUser()){
         return $this->redirectToRoute('dashboard');
@@ -18,7 +18,7 @@ class HomePageController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard', name: 'dashboard')]
+    // #[Route('/dashboard', name: 'dashboard')]
     public function dashboard(): Response
     {
         return $this->render('dashboard/index.html.twig', [
@@ -31,4 +31,4 @@ class HomePageController extends AbstractController
     {
         return $this->redirectToRoute('hompage');
     }
-}
+} 

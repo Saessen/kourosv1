@@ -9,7 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
-    #[Route('/dashboard', name: 'dashboard')]
+    // route a décommenter une fois l'oauth mis en place
+    // #[Route('/dashboard', name: 'dashboard')]
+    #[Route('/', name: 'dashboard')]
     // TODO ajout des données des entités: Devis + Factures + Sessions 
     public function index(DevisRepository $devisRepository): Response
     {

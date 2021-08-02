@@ -22,13 +22,13 @@
                     </div>
                     <div>
                     {# ANCHOR a décommenter une fois l'api google ok #}
-                    <img src="{{ app.user.image}}" class="photo" alt="Photo de {{ app.user.fullname}}" width="30" height="30" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Photo de {{app.user.email}}">
+                    {# <img src="{{ app.user.image}}" class="photo" alt="Photo de {{ app.user.fullname}}" width="30" height="30" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Photo de {{app.user.email}}"> #}
                     <a href="{{ path('logout')}}" class="navbar-brand m-0"> 
                             <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Deconnexion">
                                 <i class="fas fa-sign-out-alt fa-2x c1"></i>
                             </button> 
                     {# ANCHOR A supprimer une fois l'api google ok #}
-                        {# <a href="#" class="navbar-brand">
+                        <a href="#" class="navbar-brand">
                             <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mon compte">
                                 <i class="fas fa-user fa-2x c1"></i>
                             </button>
@@ -36,7 +36,7 @@
                         <a href="#" class="navbar-brand m-0"> 
                             <button type="button" class="btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Deconnexion">
                                 <i class="fas fa-sign-out-alt fa-2x c1"></i>
-                            </button> #}
+                            </button>
                         </a>
                     </div>
                 </div>
@@ -45,7 +45,8 @@
         {# Nav latérale #}
         <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" style="width: 300px;">
             <div class="offcanvas-header header_nav">
-                <h4 class="">Bienvenue <span class="fw-bold">{{ app.user.fullname}}</span></h4>
+            {# ANCHOR a décommenter une fois l'api google ok #}
+                {# <h4 class="">Bienvenue <span class="fw-bold">{{ app.user.fullname}}</span></h4> #}
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body bg-nav ">

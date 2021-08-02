@@ -54,7 +54,7 @@ Fonctions implémentées:
     -failure= possibilité d'ajouter un message en cas d'echec de la connexion (non fait)
     -succes = possibilité d'ajouter un message pour signifier la connexion (non fait)
 
- 9 (deja fait) créer le guard dans config->package-> security.yaml
+ 9 (deja fait a décommenter) créer le guard dans config->package-> security.yaml
  on dit au firewalls lorsque quelqu'un essaie de se connecter sur le projet on déclenche la classe sécurity\googleauthenticator
 Si plusieurs clients oauth2 il faut ajouter tous les authenticator et créer un entry point exemple:
          main:
@@ -69,7 +69,7 @@ Si plusieurs clients oauth2 il faut ajouter tous les authenticator et créer un 
 
 10 (deja fait) Dans template Homepage ajouter le lien vers la connection google: {{ path('connect_google_start')}}
 
-11 dans base.html.twig (déja fait): 
+11 dans base.html.twig (déja fait a décommenter): 
 ajouter l'image de profil <img src="{{ app.user.image}}" class="photo" alt="Photo de {{ app.user.fullname}}" width="30" height="30" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Photo de {{app.user.email}}"> (ligne 26 à décommenter)
 ajouter route logout: {{ path('logout')}} (déja fait à décommenter ligne 27)
 dans le dashboard (déja fait): ajouter fullname du user : <p>Bonjour {{app.user.fullname|upper}}!</p> (ligne 13 a décommenter)

@@ -10,9 +10,9 @@
     <nav class="navbar navbar-light bg-light m-0">
         <div class="container-fluid justify-content-center">
         {# ANCHOR A decommenter une fois l'api google ok #}
-        <p>Bonjour {{app.user.fullname|upper}}</p>
+        {# <p>Bonjour {{app.user.fullname|upper}}</p> #}
         {# ANCHOR a supprimer une fois l'api google ok #}
-            {# <p id="hello_dashboard">Bonjour {nom}</p> #}
+            <p id="hello_dashboard">Bonjour {nom}</p>
         </div>
     </nav>
     {# TODO récupérer données devis.statut #}
@@ -27,7 +27,7 @@
                         <h6><span class="badge bg-success"> Accepté</span></h6>
                     </div>
                     <p class="card-text fw-bold">
-                        {# {{devisValide|length}} #}
+                        {{devisValide|length}}
                     </p>
                 </div>
             </div>
@@ -118,7 +118,7 @@
             labels: ['devis accepté', 'devis rejeté', 'devis en attente', 'facture en cours', 'facture réglé'],
             datasets: [{
                 label: 'chiffre',
-                {# data: [{{ devisValide|length}}, {{ devisRejete|length}}, {{ devisCours|length}}, 5, 2], #}
+                data: [{{ devisValide|length}}, {{ devisRejete|length}}, {{ devisCours|length}}, 5, 2],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
