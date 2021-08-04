@@ -29,26 +29,23 @@ class Participants
      */
     private $prenom;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="participants")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $entreprise;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Conventions::class, inversedBy="participants", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $conventions;
 
     /**
      * @ORM\ManyToMany(targetEntity=Devis::class, mappedBy="participants")
      */
     private $devis;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Conventions::class, mappedBy="participants", cascade={"persist", "remove"})
+     */
+    private $conventions;
+
     public function __construct()
     {
         $this->devis = new ArrayCollection();
+        $this->conventions = new ArrayCollection();
+        
     }
     
     public function getId(): ?int
@@ -80,29 +77,7 @@ class Participants
         return $this;
     }
 
-    public function getEntreprise(): ?Entreprise
-    {
-        return $this->entreprise;
-    }
 
-    public function setEntreprise(?Entreprise $entreprise): self
-    {
-        $this->entreprise = $entreprise;
-
-        return $this;
-    }
-
-    public function getConventions(): ?Conventions
-    {
-        return $this->conventions;
-    }
-
-    public function setConventions(?Conventions $conventions): self
-    {
-        $this->conventions = $conventions;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Devis[]
@@ -111,6 +86,7 @@ class Participants
     {
         return $this->devis;
     }
+
 
     // public function addDevi(Devis $devi): self
     // {
@@ -130,4 +106,31 @@ class Participants
 
     //     return $this;
     // }
+
+    /**
+     * @return Collection|Conventions[]
+     */
+    public function getConventions(): Collection
+    {
+        return $this->conventions;
+    }
+
+    public function addConvention(Conventions $convention): self
+    {
+        if (!$this->conventions->contains($convention)) {
+            $this->conventions[] = $convention;
+            $convention->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConvention(Conventions $convention): self
+    {
+        if ($this->conventions->removeElement($convention)) {
+            $convention->removeParticipant($this);
+        }
+
+        return $this;
+    }
 }

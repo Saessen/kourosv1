@@ -42,9 +42,10 @@ class Conventions
     private $commentaire;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Participants::class, mappedBy="conventions")
+     * @ORM\ManyToMany(targetEntity=Participants::class, inversedBy="conventions", cascade={"persist", "remove"})
      */
     private $participants;
+
 
     //     /**
     //  * @ORM\Column(type="string", length=255, nullable="true")
@@ -109,6 +110,18 @@ class Conventions
         return $this;
     }
 
+    // public function getEntrepriseName(): ?string
+    // {
+    //     return $this->entrepriseName;
+    // }
+
+    // public function setEntrepriseName(string $entrepriseName): self
+    // {
+    //     $this->entrepriseName = $entrepriseName;
+
+    //     return $this;
+    // }
+
     /**
      * @return Collection|Participants[]
      */
@@ -121,7 +134,6 @@ class Conventions
     {
         if (!$this->participants->contains($participant)) {
             $this->participants[] = $participant;
-            $participant->setConventions($this);
         }
 
         return $this;
@@ -129,25 +141,8 @@ class Conventions
 
     public function removeParticipant(Participants $participant): self
     {
-        if ($this->participants->removeElement($participant)) {
-            // set the owning side to null (unless already changed)
-            if ($participant->getConventions() === $this) {
-                $participant->setConventions(null);
-            }
-        }
+        $this->participants->removeElement($participant);
 
         return $this;
     }
-
-    // public function getEntrepriseName(): ?string
-    // {
-    //     return $this->entrepriseName;
-    // }
-
-    // public function setEntrepriseName(string $entrepriseName): self
-    // {
-    //     $this->entrepriseName = $entrepriseName;
-
-    //     return $this;
-    // }
 }

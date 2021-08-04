@@ -1,13 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Conventions{% endblock %}
+{% block title %}Convention{% endblock %}
 
 {% block body %}
-    <h1>Créer une nouvelle convention</h1>
+    <h1>Création nouvelle convention</h1>
 
-    {{ include('conventions/_form.html.twig') }}
-
-    <a href="{{ path('conventions_index') }}">Retour</a>
+    {# {{ include('convention/_form.html.twig') }} #}
+    {{ form_start(form) }}
+    {{ form_row(form.lieuFormation) }}
+    {{ form_row(form.prospect) }}
+    {{ form_row(form.devis) }}
+    {{ form_row(form.commentaire) }}
+    <h3>
+        Participants
+            
+    </h3>
+    <button type="button" class="add_item_link" data-collection-holder-class="participants">
+        Ajout participants         
+    </button>
+    <ul class="participants" data-prototype="{{ form_widget(form.participants.vars.prototype)|e('html_attr') }}" data-index="0">
+        {% for participant in form.participants %}
+            <li>
+                {{ form_row(participant.nom) }}
+            </li>
+            <li>
+                {{ form_row(participant.prenom) }}
+            </li>
+        {% endfor %}
+    </ul>
+    {{ form_end(form) }}
+    {# <a href="{{ path('convention_index') }}">back to list</a> #}
 {% endblock %}
-{# TODO 
-Création d'un form => conventionParticipantsType pour ajouter les participants en même temps que la création de la convention (fctionne pas!) #}
+{% block javascripts %}
+    <script>
+        window.onload = function () {
+        var btn = document.querySelectorAll('.add_item_link');
+        console.log(btn);
+        btn.forEach(bt => bt.addEventListener("click", (e)=> addFormToCollection(e)));
+        //
+        var addFormToCollection = (e) => {
+            console.log("addFormToCollection=>",e);
+            var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+            var item = document.createElement('li');
+            item.innerHTML = collectionHolder
+            .dataset
+            .prototype
+            .replace(
+                /__name__/g,
+                collectionHolder.dataset.index
+            );
+            collectionHolder.appendChild(item);
+            collectionHolder.dataset.index++;
+        };
+        };
+    </script>
+{% endblock %}
+

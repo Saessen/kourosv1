@@ -41,15 +41,18 @@ class ConventionsController extends AbstractController
     public function new(Request $request): Response
     {
         $convention = new Conventions();
+        
         $form = $this->createForm(ConventionsType::class, $convention);
         $form->handleRequest($request);
-
+        // dd("1");
         if ($form->isSubmitted() && $form->isValid()) {
+            // dd("2");
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($convention);
+            // dd($convention);
             $entityManager->flush();
-
-            return $this->redirectToRoute('conventions_index');
+            // dd('ca marche');
+            return $this->redirectToRoute('conventions_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('conventions/new.html.twig', [

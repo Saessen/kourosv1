@@ -24,18 +24,3 @@ Faire authentification
 
 
 
-
-
-
-
-Si c'est uniquement pour stocker des fichers PDF dans une table, tu as juste à créer ta base de donnée, une table que tu appels "fichier" par exemple. Dans cette table tu peux ensuite mettre les champs que tu veux suivant tes besoins, comme :
-[list]
-[*] Id, type -> int(11), auto_increment
-[*] Nom_du_fichier, type -> varchar(50)
-[*] Chemin_du_fichier, type -> varchar(128)
-[*] Taille_du_fichier, type -> int(11)
-[*] etc...
-/list
-
-Et pour récupérer ton fichier sur un site web tu fais ta requête SQL puis par exemple :
-[<?php echo $donnees['Chemin_du_fichier'];?> Voir le pdf]

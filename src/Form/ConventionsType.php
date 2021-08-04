@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use App\Form\ConventionsParticipantsType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ConventionsType extends AbstractType
@@ -21,7 +22,13 @@ class ConventionsType extends AbstractType
             ->add('devis')
             ->add('commentaire')
             // ANCHOR
-            ->add('participants', ConventionsParticipantsType::class)
+            ->add('participants', CollectionType::class, [
+                'entry_type' => ParticipantsType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+            ])
+            ->add('submit', SubmitType::class)
         ;
     }
 
