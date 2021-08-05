@@ -3,22 +3,25 @@
 namespace App\Controller;
 
 use App\Entity\Devis;
-use App\Entity\Prospects;
 use App\Form\DevisType;
+use App\Entity\Prospects;
+use App\Form\SearchWordType;
+use App\Form\DevisStatutType;
 use App\Repository\DevisRepository;
-use App\Repository\FormationsRepository;
 use App\Repository\ProspectsRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\FormationsRepository;
+use jonasarts\Bundle\TCPDFBundle\TCPDF\TCPDF;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\SearchWordType;
-use App\Form\DevisStatutType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/devis')]
+
 class DevisController extends AbstractController
 {
-    #[Route('/', name: 'devis_index', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/devis", name="devis_index", methods={"GET","POST"})
+     */
     public function index(DevisRepository $devisRepository, Request $request, FormationsRepository $formationsRepository): Response
     {   
         $devis = $devisRepository->findAll();
@@ -80,7 +83,10 @@ class DevisController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'devis_new', methods: ['GET', 'POST'])]
+
+    /**
+     * @Route("/devis/new", name="devis_new", methods={"GET","POST"})
+     */
     public function new(Request $request): Response
     {
         $devi = new Devis();
@@ -101,8 +107,64 @@ class DevisController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/devis/{id}/pdf", name="devis_pdf", methods={"GET","POST"})
+     */
+    public function makePdf(Devis $devis, DevisRepository $devisRepository, $id,  \jonasarts\Bundle\TCPDFBundle\TCPDF\TCPDF $pdf)
+    {
+        
+        $devis = $devisRepository->find($id);
+        // Les paramètres pour la mise en page ne sont modifiables qu'avec une classe extends. Sinon modifier à même le twig.
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+
+        // Ces informations ne sont pas visibles directement sur le pdf
+        $pdf->SetCreator('Aure&Lu');
+        $pdf->SetAuthor('Cie, Lu Cie');
+        $pdf->SetTitle('Titre bien cool');
+        $pdf->SetSubject('Créer un pdf en lisant parfois la doc');
+
+
+        // Pour supprimer les headers et footer par défaut
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+
+        // Créer la page du pdf
+        $pdf->AddPage();
+
+        // Appel du template et peuplage de la variable devis
+        // $html = $this->renderView('devis/pdfdevis.html.twig', ['devis' => $devisRepository->find($id)]);
+        // $pdf->WriteHtml($html);
+
+        // Mofifier l'array pour definir chaque variable et remplacer les expressions du twig par les informations de la variable
+        $html = $this->renderView('@templates/essai-template.html.twig', [  'formations' => $devis->getFormations(),
+                                                                            'nbrParticipants' => $devis->getNbrParticipants(),
+                                                                            'tva' => $devis->getTva(),
+                                                                            'dateCreation' => $devis->getDateCreation(),
+                                                                            'client' => $devis->getClient(),
+                                                                            'dateDebut' => $devis->getDateDebut(),
+                                                                            'dateFin' => $devis->getDateFin(),
+                                                                            'numeroDevis' => $devis->getNumeroDevis(),
+                                                                            'methode' => $devis->getMethode(),
+                                                                            'fraisAnnexes' => $devis->getFraisAnnexes(),
+                                                                            'opco' => $devis->getOpco(),
+                                                                            'prix' => $devis->getPrixes(),
+                                                                            'nomContact' => $devis->getNomContact(),
+                                                                    ]);
+        $pdf->WriteHtml($html);
+
+
+        $pdf->lastPage();
+
+        
+        //On ferme et on exporte le document 
+        $pdf->Output('devis' . $devis->getId() . '.pdf', 'I');
+    }
+
     // ANCHOR
-    #[Route('/new/{id}/prospect', name: 'devis_new_prospect', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/new/{id}/prospect", name="devis_new_prospect", methods={"GET","POST"})
+     */
     public function newProspect(Request $request, ProspectsRepository $prospectsRepository, $id): Response
     {   
         $prospects = $prospectsRepository->find($id);
@@ -129,7 +191,9 @@ class DevisController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'devis_show', methods: ['GET'])]
+    /**
+     * @Route("/devis/{id}", name="devis_show", methods={"GET"})
+     */
     public function show(Devis $devi, DevisRepository $devisRepository, $id): Response
     {
         $devis= $devisRepository->find($id);
@@ -161,7 +225,9 @@ class DevisController extends AbstractController
         
     // }
 
-    #[Route('/{id}/edit', name: 'devis_edit', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/devis/{id}/edit", name="devis_edit", methods={"GET","POST"})
+     */
     public function edit(Request $request, Devis $devi): Response
     {
         $form = $this->createForm(DevisType::class, $devi);
@@ -179,7 +245,10 @@ class DevisController extends AbstractController
         ]);
     }
    // ANCHOR
-    #[Route('/{id}/edit/statut', name: 'edit_statut', methods: ['GET', 'POST'])]
+
+    /**
+     * @Route("devis/{id}/edit/statut", name="edit_statut", methods={"GET","POST"})
+     */
     public function editStatut(Request $request, Devis $devi): Response
     {
         $form = $this->createForm(DevisStatutType::class, $devi);
@@ -215,7 +284,9 @@ class DevisController extends AbstractController
     //     ]);
     // }
 
-    #[Route('/{id}', name: 'devis_delete', methods: ['POST'])]
+    /**
+     * @Route("/devis/{id}", name="devis_delete", methods={"POST"})
+     */
     public function delete(Request $request, Devis $devi): Response
     {
         if ($this->isCsrfTokenValid('delete'.$devi->getId(), $request->request->get('_token'))) {

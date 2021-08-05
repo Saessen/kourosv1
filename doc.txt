@@ -92,16 +92,261 @@ Graphique:
             Récupération des données du devis 
             
 PDF:
-            Utilisation TCPDF lien doc: https://tcpdf.org/
+        Utilisation TCPDF lien doc: https://tcpdf.org/
 
-Claendrier: 
-            Utilisation Fullcalendar lien doc: https://fullcalendar.io/docs
+Calendrier: 
+        Utilisation Fullcalendar lien doc: https://fullcalendar.io/docs
 
 Search: 
             Création d'un formulaire pour la recherche + création de la fonction dans le repository et appel de celle-ci dans le controleur 
 
 Ckeditor:
             https://github.com/FriendsOfSymfony/FOSCKEditorBundle
+
+
+⚠ Fonctionnalités réalisées avec symfony 4.7 et PHP 7.3 / 8.3 
+
+ANCHOR - I - CREATION D'UN PDF AVEC TCPF 
+
+        A - Installation et préparation 
+
+                1. Importer le bundle TCPF de jonasart avec la commande : composer require jonasarts/tcpdf-bundle
+
+                2. Importer le bundle Ckeditor de friendsofsymfony avec la commande : composer require friendsofsymfony/ckeditor-bundle &&         L'installer avec la commande : php bin/console ckeditor:install &&
+                L'installer dans le directory avec : php bin/console assets:install
+                Dans config > packages > fos_ck_editor.yaml préciser si la toolbar doit être basic, standard ou full.
+                       😎 Pour une toolbar personnalisée : https://ckeditor.com/latest/samples/toolbarconfigurator/index.html#basic
+                       ⚠ En cas de projet partagé, chaque participant devra faire l'installation de ckeditor et des assets après avoir fait un 
+                       composer update pour récupérer le dossier "vendor".
+
+                3. Créer une entité Template, son controller et son form (php bin/console make:crud). L'entité doit contenir un champs texte, des tags (str), le nom du fichier (str) // et être relié à l'entité Formations en ManyToMany (plusieurs templates pour plusieurs formations).
+                        ⚠ Le mieux est d'avoir déjà créé les entités Formations, Devis, Facture, Conventions etc.. ainsi que leurs forms car on va faire appel aux données de ces entités pour générer un pdf.
+
+                4. Créer un dossier "templates" à la racine du dossier "public". 
+                        ⚠ Pour pouvoir accéder à des fichiers et les modifier depuis l'interface utilisateur on ne peut pas les laisser dans le dossier "templates" déjà existant à la racine du projet. C'est pourquoi on doit les mettre dans le dossier "public", comme le fichier index.php et les assets.
+
+                5. Importer le composant filesystem de symfony avec la commande : composer require symfony/filesystem
+                        Filesystem contient des méthodes qui nous servirons à enregistrer nos templates dans des fichiers que nous pourrons appeler en fonction de leur rôle (devis, facture, etc...).
+
+        B - Créer un template 
+
+                1. Dans TemplateController.php on injecte la classe Filesystem à la fonction new (ne pas oublier de l'importer dans les use).
+
+                2. On récupère le nom du fichier entré dans le formulaire dans la variable $filename avec ->getFilename(). 
+
+                3. Après avoir flusher les données du formulaire, on enregistre le fichier $filename que l'on concatène avec une extension ".html.twig" dans public > templates grâce à la méthode dumpFile(path_du_fichier/nom_du_fichier, contenu_du_fichier).
+
+                4. Il faut modifier le path naturellement emprunté par Symfony pour aller chercher les fichiers non plus dans "templates" mais dans public > templates. Dans config > packages > twig.yaml on ajoute en dessous du 
+                        default_path : '%kernel.project_dir%/templates'
+                un nouveau path qui précise que l'on rentre dans le dossier public et auquel on donne un nom ('templates')
+                            paths : 
+                                '%kernel.project_dir%/public/templates' : 'templates'
+                
+                5. On doit donc obtenir ce genre de résultat : 
+                        $filesystem->dumpFile('templates/' . $filename . '.html.twig', $template->getTexte());
+                
+
+                6. Dans TemplateType, insérer CKEditorType dans le champs ->add("texte") du formulaire. 
+                        ⚠ Vérifier qu'il apparait bien dans les use. 
+                
+                7. Tester le formulaire et vérifier qu'un nouveau fichier au format ".html.twig" apparait bien dans public > templates. 
+
+        C. Générer un PDF (enfin!)
+
+                1. On veut créer un pdf à partir des informations d'un des objets d'une entité (devis, facture, ...). Dans le controller de cette entité on va donc créer une nouvelle route qu'on appellera d'un nom exquis tel "devis_pdf" et qui permettra d'ouvrir le pdf dans une nouvelle fenêtre pour le télécharger. Cette route doit récupérer avec GET l'id du devis que l'on souhaite transformer.
+
+                2. Créer une fonction makePdf() où le bundle de jonasart sera injecté. La fonction fera également appel à l'entité Devis et à son repository.
+                        ⚠ Le service TCPDF est appelé de cette manière :  \jonasarts\Bundle\TCPDFBundle\TCPDF\TCPDF $pdf 
+                        Vérifier que le use est correctement orthographié.
+
+                3. On cherche le devis qu'on veut transformer par son id dans le repository grâce à la méthode findBy($id)
+
+                4. On instancie la classe TCPDF avec tous les paramètres nécessaires. 
+                        Pour personnaliser la mise en page des templates, on peut créer une entité MYPDF qui extends la classe TCPDF à la racine de "src" et y modifier la valeur de chaque paramètre (m'voyez?). Il est aussi possible de modifier le style directement dans le twig avec du css. Attention cependant, le bundle ne permet pas d'utiliser des frameworks (pas de Bootstrap... pas de Bootstrap) ou du css trop élaboré.
+                        ⚠ Les différentes possibilités de personnalisation sont sur le site que l'on a référencé en haut de page. Passé le premier choc du template n°6, vous aurez accès à toute l'étendue (hum) de vos possibilités artistiques.
+                
+                5. On crée la page avec la méthode addPage() de TCPDF.
+
+                6. Ici, ça devient tricky. On veut faire appel à un certain template pour une certaine entité. Nous avons déjà créé le raccourci pour que Symfony retrouve nos vues dans le dossier public (mais si rappelez-vous, on l'a appelé "templates" avec beaucoup d'originalité). 
+                Si l'on veut générer un pdf pour le devis de l'entreprise X, on va isoler ce devis par son id et récupérer ses informations pour les faire apparaître dans le devis. Mais comment, Père Castor? 
+                On va créer une variable ($html) d'où l'on va appeler notre vue avec la méthode renderView() et où on va passer un array qui servira à peupler la variable $devis. $devis servira à faire passer les informations pertinentes attenantes à un objet isolé par son id. 
+                        $html = $this->renderView('@templates/nom-du-template.html.twig', ['titre' => $devis->getFormations()->getTitre()]);
+
+                        🤓 Amélioration possible: On choisit un template et si besoin, on le modifie. Mais si on veut faire plusieurs templates pour eviter de modifier les données déjà rentrées, il faut pouvoir choisir quel templates on souhaite utiliser. Pour l'instant ce n'est pas possible mais il faudrait que les utilisateurs puisse le faire coté front.
+                
+                7. On demandera toujours les mêmes informations au client, celles qui sont stockables en bdd. Donc on peut prévoir quelles informations seront appelées et utilisées dans le template. L'array du renderView() doit être aussi complet que possible. 
+                Il n'y aura plus qu'à appeler les informations dans le twig avec {{titre}}, {{prenom}}, {{prix_ttc}}, etc. 
+
+                8. On "écrit" la page du pdf avec le contenu de la variable $html grâce à la méthode writeHtml(), puis on précise qu'il n'y a pas d'autre page à créer avec lastPage().
+
+                9. On ferme et on exporte le document avec la méthode Output() qui nécessite deux paramètres. Le premier est le nom sous lequel on va exporter le document et qui doit avoir une extension '.pdf'. Le second est une lettre qui va préciser la destination du fichier. 
+                        'I' pour envoyer le pdf sur le navigateur (Il est enregistrable par la suite). C'est celui-ci qu'on utilise.
+                        'F' pour l'enregistrer en tant que fichier directement. 
+                        'D' pour l'envoyer sur le navigateur et forcer l'enregistrement du fichier.
+                        'E' pour minifier le fichier en base64 et l'envoyer par mail. Le code devra être complété pour cela.
+                
+                10. Insérer le lien pour générer un pdf sur la page voulue (ex: la page d'index des devis). Le path de la fonction et l'id du document doivent y figurer. 
+                        <a class="btn btn-outline-light" href="{{ path('devis_pdf', {'id': devi.id}) }}">Générer pdf</a> 
+
+                11. Et voilà, vous avez un pdf (ça fait plaisir). Pas un beau pdf car il reste encore toute la partie esthétique à prendre en main (ça fait pas plaisir), mais un pdf que vous pouvez télécharger et garder en souvenir de ces joyeux moments passés à vous arracher les cheveux, le front en sueur et la bave aux... bref, joyeux. Merci qui? 🤗
+
+
+ANCHOR - II - CREATION D'UN CALENDRIER AVEC FULLCALENDAR.JS
+
+                                        🚑 Difficulté: it's over 9000!! (sans la doc)
+
+        A - Installation et préparation
+
+                1. Il existe des bundles à importer dans Symfony pour les calendriers, le plus simple reste d'importer un lien cdn sur base.html.twig depuis le site de fullcalendar.js référencé plus haut. Pour ceux qui ne trouvent pas:
+                        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js" integrity="sha256-AOrsg7pOO9zNtKymdz4LsI+KyLEHhTccJrZVU4UFwIU=" crossorigin="anonymous"></script>
+                Il faut l'intégrer entre la fin du {% bloc body %} et le début du {% bloc javascripts %} sur base.html.twig 
+        
+                2. Vous avez le lien, maintenant il faut l'entité (ou les entités). Cette entité va contenir toutes les propriétés qui permettront la création d'un évènement. On peut nommer cette entité Calendrier, Event, etc mais dans le cadre de ce CRM, on va l'appeler Session, car les events qui seront pris en compte dans cette fonctionnalité sont les sessions (ta-da). On regarde bien la documentation pour voir quels paramètres sont demandés en JS pour les passer à notre Session. Comme nous sommes très raisonnables, nous nous sommes contentées des 2/3 de la liste. 
+                        ⚠ Notez bien que les noms des paramètres/propriétés ne doivent pas être traduits ou modifiés, fullcalendar ne les reconnaitrait pas.
+                Voici une liste (non-exhaustive) de paramètres que vous pouvez entrer pour l'affichage des events sur le calendrier:
+                        - title (parle de lui-même, string 255 not null)
+                        - start ( la date et l'heure du debut, c'est un datetime nullable, fonctionne uniquement avec end)
+                        - end (la date et l'heure de fin, datetime nullable, exclusif à start)
+                                -> start et end sont exclusifs et utilisés pour des events continus et non-répétitifs. Si un event est récurrent, on va préférer utiliser les paramètres suivants. 
+                        - startTime (l'heure de début, c'est un time nullable qui fonctionne avec endTime, startRecur, endRecur et daysOfWeek)
+                        - endTime (l'heure de fin, time nullable)
+                        - startRecur (la date de début de l'occurence, date nullable)
+                        - endRecur (la date de fin de l'occurence, date nullable)
+                        - daysOfWeek (les jours de la semaine où l'occurence à lieu, array d'integers) 
+                                -> c'est là que ça se corse. Il doit apparaitre dans l'affichage en tant que paramètre de l'event mais comme c'est un tableau, on va devoir créer une entité DaysOfWeek en relation ManyToMany avec Session pour appeler des jours passés en valeurs de DaysOfWeek.
+                        - allDay (l'event dure toute la journée ou pas, boolean)
+                        - groupId (comme son nom ne l'indique pas c'est un nom que l'on va donner à une session ou un ensemble de session pour pouvoir les modifier ensemble et pas une par une, string 255 nullable, je n'ai pas essayer de l'utiliser en dehors d'un event récurrent donc à voir s'il fonctionne avec start et end)
+
+                        - borderColor (couleur de la bordure de l'event sur l'affichage du calendrier, string 255 nullable)
+                        - backgroundColor (couleur de fond de l'event sur l'affichage du calendrier, string 255 nullable)
+                        - textColor (couleur du texte de l'event sur l'affichage du calendrier, string 255 nullable)
+                                -> A faire pour plus tard: essayez de 'ramdomiser' le processus de choix des couleurs parce que rentrer ça à chaque création de Session.... urg.
+
+                        - nbrDays (ça n'est pas un paramètre prédéfini par fullcalendar, mais ça peut être utile pour connaître le nombre de jours que va durée la session et donc calculer son coût, float nullable)
+                        - nbrHours (même principe que nbrDays mais pour les heures, float nullable)
+
+                        - Tous les autres paramètres liés à la session comme formation ou prospect (on récupère les données grâce aux relations) 
+                
+                3. Créer une entité DaysOfWeek avec pour paramètres:
+                        - sessions (relation ManyToMany avec entité Session) 
+                                -> cela doit créer une table relationnelle dans votre bdd.
+                        - name (nom des jours de la semaine, string 255 not null)
+                        - number (chiffre correspondant à un jour, int not null)
+                        Le paramètre daysOfWeek de fullcalendar est un tableau de nombres entiers.
+                        
+                        <script>
+                           (...)
+                                events: [
+                                        daysOfWeek: ['0', '3', '4'],
+                                        startTime: '09:00:00', 
+                                        endTime: '10:00:00',
+                                        startRecur: '2021-07-09',
+                                        endRecur: '2021-09-01',
+                                ]
+                           (...)
+                        </script>
+
+                        Chaque jour de la semaine correspond à un chiffre prédéfini (0 = dimanche, 1 = lundi, etc). Il est indispensable de faire correspondre ces chiffres avec les valeurs entrées en bdd. L'id ne doit pas être utilisé car il commencera à 1 hors la valeur numérique de dimanche est 0 dans fullcalendar.
+                
+                4. Faire les CRUDs. Il en faut même pour DaysOfWeek à moins que vous ne rentriez vous-même les données dans la bdd ou à l'aide d'une fixture.
+                        
+        B - Créer un event
+
+                1. Avant de commencer, vérifiez que vous avez rempli correctement votre entité DaysOfWeek avec les 'name' des jours de la semaine et leur 'number'. 
+
+                2. Si oui, dans Session.php vérifiez que la fonction $daysOfWeeks (attention au 's' à la fin) est bien présente et persistée. 
+
+                        /**
+                        * @ORM\ManyToMany(targetEntity=DaysOfWeek::class, mappedBy="sessions", cascade={"persist, remove"})
+                        */
+                        private $daysOfWeeks;
+
+                Par ailleurs, vérifiez aussi la présence des méthodes addDaysOfWeek() et getDaysOfWeeks(). 
+
+                3. Dans SessionType.php ajoutez daysOfWeeks au builder. 
+                        ⚠ On ajoute bien le paramètre daysOfWeeks (le 's' !!) qui relie Session à DaysOfWeek et grâce auquel on va récupérer les valeurs à l'intérieur, sinon ça ne fonctionne pas.
+                Le formulaire récupérera les données d'une entité avec EntityType::class. Dans un array on précise les options possibles: la classe d'où l'on va prendre les données avec 'class', de quelle(s) colonne(s) les valeurs mises en avant sont tirées avec 'choice_label' et enfin le format de choix : 'multiple' et 'expanded' (boolean) passés à true permettent d'avoir plusieurs cases que l'on peut cocher. 
+
+                        {
+                        $builder
+                                (...)
+                                ->add('daysOfWeeks', EntityType::class, ['class' => DaysOfWeek::class, 'choice_label' => 'name', 'multiple' => true, 'expanded' => true])
+                                ;
+                        }
+                Si tout se passe bien vous devriez pouvoir enregistrer une session en tant qu'event récurrent ou continu. Si vous remarquez un problème d'enregistrement en base de données suivez l'instruction 4. sinon passez directement au point C sur l'affichage du calendrier.
+
+                4. Dans SessionController.php, plus précisemment sur la route de création d'une session il va falloir modifier la fonction new(). Si vous avez rencontré un problème d'enregistrement en bdd, il se peu que votre relation ManyToMany n'ait pas été créée dans le bon owner ce qui entraine un problème pour persister les données en bdd. Il faut obliger Symfony a persister grâce à une boucle. On itère sur chaque objet de la classe DaysOfWeek que l'on a créé pour les ajouter un à un dans l'objet session en cours d'enregistrement. 
+                        /**
+                        * @Route("/session/new", name="session_new", methods={"GET","POST"})
+                        */
+                        public function new(Request $request): Response
+                        {
+                                (...)
+                                if ($form->isSubmitted() && $form->isValid()) {
+                                        foreach ($session->getDaysOfWeeks() as $dow) {
+                                                $dow->addSession($session);
+                                        }
+                                        (...)
+                                }
+                        }
+                Et là, ô miracle, un enregistrement!
+
+        C - Affichage du calendrier 
+
+                1. Déterminez où vous souhaitez afficher votre calendrier. Le Dashboard c'est très bien pour ce CRM donc sus à DashboardController.php!
+                Dans la fonction index on vérifie l'injection du repository de Session et on se lance.
+                Créez une variable qui va récupérer toutes les sessions/events entrées en bdd avec un findAll().
+
+                        $eventsSessions = $sessionRepository->findAll();
+
+                Oui ce nom est pas génial, trouvez mieux si vous osez.
+
+                2. On va créer un tableau pour chaque session. Ils seront reconnus par JS et affichés sur le calendrier indépendamment les uns des autres. On instancie donc une variable avec un array vide avant de pouvoir le remplir. 
+
+                        $rdvsSession = [];
+                
+                3. On va itérer sur chaque eventsSession pour pouvoir créer un tableau de chaque. A l'intérieur d'une boucle foreach on va instancier un autre array vide cette fois ci pour les daysOfWeek. On ré-itère (on refait une autre boucle quoi) sur daysOfWeek puisque c'est un tableau que l'on veut remplir. On va chercher les DaysOfWeeks de la session avec un getDaysOfWeeks() puis on fait un array_push(endroit_ou_je_stocke_mes_donnees, donnees_que_je_veux_stocker).
+                        
+                        foreach($eventsSessions as $eventSession){
+                                $daysofWeeks = [];
+                                foreach($eventSession->getDaysOfWeeks() as $d){
+                                array_push($daysofWeeks, $d->getNumber().'');
+                                }
+                                (...)
+                        }
+                ⚠ La concaténation est nécessaire avec les guillemets simples. On va chercher un 'number' qui correspond à un integer en bdd, il n'a donc pas de guillemet. Le format du tableau daysOfWeek reconnu par fullCalendar nécessite cependant des guillements simples pour chaque nombre représentant un jour de la semaine.
+
+                4. Maintenant que l'on a récupérer les jours de la semaine de notre session on va pouvoir remplir notre tableau avec les valeurs associées à chaque propriété de Session. 
+
+                        $rdvsSession[] = [
+                                'id' => $eventSession->getId(),
+                                'title' => $eventSession->getTitle(),
+                                'start' => (!is_null($eventSession->getStart()))? $eventSession->getStart()->format('Y-m-d H:i:s') : null,
+                                'end' => (!is_null($eventSession->getEnd()))? $eventSession->getEnd()->format('Y-m-d H:i:s') : null,
+                                'description' => $eventSession->getDescription(),
+                                'backgroundColor' => $eventSession->getBackgroundColor(),
+                                'borderColor' => $eventSession->getBorderColor(),
+                                'textColor' => $eventSession->getTextColor(),
+                                'allDay' => $eventSession->getAllDay(),
+                                'startTime' =>(!is_null($eventSession->getStartTime()))? $eventSession->getStartTime()->format('H:i:s') : null,
+                                'endTime' => (!is_null($eventSession->getEndTime()))? $eventSession->getEndTime()->format(' H:i:s') : null,
+                                'startRecur' => (!is_null($eventSession->getStartRecur()))? $eventSession->getStartRecur()->format('Y-m-d') : null,
+                                'endRecur' => (!is_null($eventSession->getEndRecur()))? $eventSession->getEndRecur()->format('Y-m-d') : null,
+                                'daysOfWeek' => $daysofWeeks,
+                                'groupId' => $eventSession->getGroupId(),
+                        ];
+                Il faut établir un format pour les datetime, les date et les time afin qu'ils s'affichent et soient reconnus correctement par JS.
+
+                5. Maintenant que l'on a notre session/event, il faut l'afficher dans le JS. Mais pour cela il va falloir la traduire dans le format json. On crée donc une variable qui va contenir nos informations transformées par la fonction json_encode().
+
+                        $dataSession = json_encode($rdvsSession);
+                
+                Ensuite on envoie les données dans la vue pour qu'elles y soient affichées. 
+
+                        return $this->render('dashboard/index.html.twig', ['dataSession' => $dataSession, 'eventsSessions' => $eventsSessions] );
+
+                6. 
+
 
 
 
