@@ -1,3 +1,6 @@
+lien trello 
+https://trello.com/invite/b/Xn891lMB/ca693a709c5cbf7f27d434de8a67b43f/kouros
+
 ANCHOR Authentification oAuth
 
 Sur ce projet nous avons mis en place un système d'authenfication via google avec le bundle knpuniversity/oauth2-client-bundle
@@ -89,6 +92,7 @@ C'est a partir de ces parmaètres qu'il sera possible de récupérer les agendas
 
 Graphique: 
             Utilisation ChartJs lien doc: https://www.chartjs.org/docs/latest/charts/bubble.html
+            (POC sur trello)
             Récupération des données du devis 
             
 PDF:

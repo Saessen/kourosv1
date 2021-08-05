@@ -5,9 +5,10 @@ namespace App\Controller;
 use App\Entity\Conventions;
 use App\Form\SearchWordType;
 use App\Form\ConventionsType;
-use App\Form\ConventionsParticipantsType;
 use App\Repository\DevisRepository;
+use App\Form\ConventionsParticipantsType;
 use App\Repository\ConventionsRepository;
+use jonasarts\Bundle\TCPDFBundle\TCPDF\TCPDF;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,6 +61,53 @@ class ConventionsController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/conventions/{id}/pdf", name="conventions_pdf", methods={"GET","POST"})
+     */
+    public function makePdf(Conventions $conventions, ConventionsRepository $conventionsRepository, $id,  \jonasarts\Bundle\TCPDFBundle\TCPDF\TCPDF $pdf)
+    {
+        
+        $conventions = $conventionsRepository->find($id);
+        // Les paramètres pour la mise en page ne sont modifiables qu'avec une classe extends. Sinon modifier à même le twig.
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+
+        // Ces informations ne sont pas visibles directement sur le pdf
+        $pdf->SetCreator('Aure&Lu');
+        $pdf->SetAuthor('Cie, Lu Cie');
+        $pdf->SetTitle('Titre bien cool');
+        $pdf->SetSubject('Créer un pdf en lisant parfois la doc');
+
+
+        // Pour supprimer les headers et footer par défaut
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+
+        // Créer la page du pdf
+        $pdf->AddPage();
+
+        // Appel du template et peuplage de la variable devis
+        // $html = $this->renderView('devis/pdfdevis.html.twig', ['devis' => $devisRepository->find($id)]);
+        // $pdf->WriteHtml($html);
+
+        // Mofifier l'array pour definir chaque variable et remplacer les expressions du twig par les informations de la variable
+        $html = $this->renderView('@templates/essai-template.html.twig', [  'Id' => $conventions->getId(),
+                                                                            'prospect' => $conventions->getProspect(),
+                                                                            'lienFormation' => $conventions->getLieuFormation(),
+                                                                            'devis' => $conventions->getDevis(),
+                                                                            'commentaire' => $conventions->getCommentaire(),
+                                                                            'participants' => $conventions->getParticipants(),
+                                                                    ]);
+        $pdf->WriteHtml($html);
+
+
+        $pdf->lastPage();
+
+        
+        //On ferme et on exporte le document 
+        $pdf->Output('conventions' . $conventions->getId() . '.pdf', 'I');
+    }
+
 
     // ANCHOR
     #[Route('/new/{id}/devis', name: 'convention_new_devis', methods: ['GET', 'POST'])]
