@@ -22,8 +22,6 @@
         {% for participant in form.participants %}
             <li>
                 {{ form_row(participant.nom) }}
-            </li>
-            <li>
                 {{ form_row(participant.prenom) }}
             </li>
         {% endfor %}
@@ -33,26 +31,39 @@
 {% endblock %}
 {% block javascripts %}
     <script>
-        window.onload = function () {
-        var btn = document.querySelectorAll('.add_item_link');
-        console.log(btn);
-        btn.forEach(bt => bt.addEventListener("click", (e)=> addFormToCollection(e)));
-        //
-        var addFormToCollection = (e) => {
-            console.log("addFormToCollection=>",e);
-            var collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-            var item = document.createElement('li');
-            item.innerHTML = collectionHolder
-            .dataset
-            .prototype
-            .replace(
-                /__name__/g,
-                collectionHolder.dataset.index
-            );
-            collectionHolder.appendChild(item);
-            collectionHolder.dataset.index++;
-        };
-        };
+       window.onload = function(){
+            let btn = document.querySelector('.add_item_link');
+            console.log(btn);
+            btn.addEventListener("click", (e)=> addFormToCollection(e));
+            const addPartFormDeleteLink = (item)=>{
+                const removeFormButton = document.createElement('button')
+                removeFormButton.innerText = 'Supprimer ce participant'
+                item.append(removeFormButton);
+                removeFormButton.addEventListener('click', (e) => {
+                    e.preventDefault()
+                    item.remove();
+                });
+            }
+                const addFormToCollection = (e) =>{
+                    console.log("addFormToCollection=>",e);
+                        const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+                        const item = document.createElement('li');
+                        item.innerHTML = collectionHolder
+                        .dataset
+                        .prototype
+                        .replace(
+                            /__name__/g,
+                            collectionHolder.dataset.index
+                        );
+                        collectionHolder.appendChild(item);
+                        collectionHolder.dataset.index++;
+                        addPartFormDeleteLink(item);
+                    };
+                    const parts = document.querySelector('ul.participants').querySelectorAll('li');
+                    parts.forEach((part)=> {
+                        addPartFormDeleteLink(part)
+                    });
+    };
     </script>
 {% endblock %}
 

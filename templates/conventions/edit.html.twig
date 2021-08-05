@@ -18,3 +18,41 @@
 
     {{ include('conventions/_delete_form.html.twig') }}
 {% endblock %}
+{% block javascripts %}
+    <script>
+    //form dynamique ajout suppr participants dans le form convention
+    window.onload = function(){
+            let btn = document.querySelector('.add_item_link');
+            console.log(btn);
+            btn.addEventListener("click", (e)=> addFormToCollection(e));
+            const addPartFormDeleteLink = (item)=>{
+                const removeFormButton = document.createElement('button')
+                removeFormButton.innerText = 'Supprimer ce participant'
+                item.append(removeFormButton);
+                removeFormButton.addEventListener('click', (e) => {
+                    e.preventDefault()
+                    item.remove();
+                });
+            }
+                const addFormToCollection = (e) =>{
+                    console.log("addFormToCollection=>",e);
+                        const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+                        const item = document.createElement('li');
+                        item.innerHTML = collectionHolder
+                        .dataset
+                        .prototype
+                        .replace(
+                            /__name__/g,
+                            collectionHolder.dataset.index
+                        );
+                        collectionHolder.appendChild(item);
+                        collectionHolder.dataset.index++;
+                        addPartFormDeleteLink(item);
+                    };
+                    const parts = document.querySelector('ul.participants').querySelectorAll('li');
+                    parts.forEach((part)=> {
+                        addPartFormDeleteLink(part)
+                    });
+    };
+    </script>
+{% endblock %}

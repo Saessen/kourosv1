@@ -5,10 +5,8 @@ doc: https://github.com/knpuniversity/oauth2-client-bundle
 oauth2 permet de se connecter via les réseaux (linkedin, facebook, google etc)
 L'objectif sur Kouros était de faire une identification via google dans le but final est la récupération et la transmission du planning.
 Celle ci est possible en passant différent scopes en paramètre.
-Pour démarrer il faut créer une appli sur google. Les codes (clientId et clientSecret) étant personnel pour chaque développeurs nous ne pouvons pas laisser les notres.
-Il est possible pour tester le projet de créer son appli mais à terme il faudra que celle-ci soit faites spécifiquement par Kouros.
-Tout le code est fonctionnel et prêt à l'emploi. Nous avons commenté les lignes car sans le client id et client secret ce sera bloquant.
-Il n'y a plus qu'a créer l'appli google renseigner le client id et client secret dans le .env et décommenter les lignes aux endroits indiqués.
+Pour démarrer il faut créer une api sur google. Les codes (clientId et clientSecret) .
+
 
 1 (déja fait ) installation du bundle composer require knpuniversity/oauth2-client-bundle
 
@@ -19,8 +17,8 @@ Il n'y a plus qu'a créer l'appli google renseigner le client id et client secre
 
 4 (déja fait) créer un controller homepage qui permettra d'avoir un lien de connexion
 
-5 création de l'application google, permettra d'avoir des identifiants dont google a besoin pour identifier notre application
-Dans la console google devlopers:
+5(déja fait) création de l'application google, permettra d'avoir des identifiants dont google a besoin pour identifier notre application
+Dans la console google devlopers:(utilisation de l'adresse mail : devkouros@gmail.com password: @devKouros2021)
  Sur: https://console.cloud.google.com/home/
  Dans API et services -> identifiants -> créer des identifiants ->ID client Oauth
  type d'application = appli web
@@ -28,8 +26,11 @@ Dans la console google devlopers:
  uri = http://127.0.0.1:8001 (servira de point d'entrée pour l'authentification)
  uri redirection = http://127.0.0.1:8001/connect/google/check (route post authentification)
  ->créer<-
- La console google a crée notre client et affiche les identifiants a conserver id client et code secret ( attention code perso! Si comme nous vous créer votre api pensez a enlever les codes à la fin)
- code a renseigner dans le .env (ligne 35 et 36)
+ La console google a crée notre client et affiche les identifiants a conserver et a renseigner dans le .env id client et code secret 
+
+ id: 113392687962-5jtcjp75mtl0lkhb3etudduqi300tatf.apps.googleusercontent.com
+ secret: ScFWXGkDjVgymM07hAyWJ5F5
+
  Une fois les Id clients enregistrés dans le .env nous pouvons les utiliser sur tout le projet
 
  6 (déja fait à décommenter )Dans  config-> package -> knpu_oauth2_client.yaml 
@@ -38,6 +39,7 @@ Dans la console google devlopers:
 
  7(deja fait )Création du controller = GoogleController.php  qui va gérer les deux routes de connexion:
  celle ou on envoi la personne se connecter a google et celle ou google nous renvoi les infos 
+ 
  Si mise en place de plusieurs authentification, créer un controller par client
  Le code écrit dans le controller est dispo sur la doc github.
  La route connectAction est celle utilisée par le bundle, 
